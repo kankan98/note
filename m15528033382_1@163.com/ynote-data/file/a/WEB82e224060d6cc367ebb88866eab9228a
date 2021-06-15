@@ -1,7 +1,0 @@
-
-```
-Random dice = new Random();	//实例方法（有状态方法）
-int roll = dice.Next(1, 7);
-
-Console.WriteLine(roll);		//无状态方法
-```
