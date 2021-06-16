@@ -68,7 +68,7 @@ function queryData(url){
 
 queryData('http://localhost:3000/data')
     .then(function(data){
-        console.oog(data);
+        console.log(data);
     },function(info){
         console.log(info); 
     });
