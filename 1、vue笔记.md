@@ -158,7 +158,7 @@ fetch('localhost:3000/abc?id=123',{
 })
 ```
 
-<small>方式1：</small>
+方式1：
 
 ```js
 //传统参数传递方式
@@ -173,7 +173,7 @@ app.get('localhost:3000/books',(req, res) => {
     res.send('传统的URL传递参数！' + req.query.id)
 })
 ```
-<small>等价于：</small>
+等价于：
 
 ```js
 //Get请求方式的参数传递
@@ -208,7 +208,7 @@ app.delete('/books/:id',(req, res) => {
 ```
 
 ##### 3.4 POST请求方式的参数传递
-<small>用法1：</small>
+用法1：
 
 ```js
 //Post请求方式的参数传递
@@ -229,8 +229,7 @@ app.post('localhost:3000/books',(req, res) => {
     res.send('PUST请求传递参数！' + req.body.uname + '---' req.body.pwd)
 })
 ```
-<small>用法2：</small>
-
+用法2：
 ```js
 //Post请求方式的参数传递
 fetch('localhost:3000/books',{
@@ -307,10 +306,7 @@ app.get('/json',(req, res) => {
     });
 })
 ```
-
-<small> 用text格式：</small>
 用text格式：
-
 ```js
 fetch('http://localhost:3000/json').then(data => {
     return data.text();
