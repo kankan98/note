@@ -53,7 +53,7 @@ axios.get('/user?ID=12345')
     console.log(error);
   });
 
-  axios.get('/user/12345')
+axios.get('/user/12345')
   .then(function (response) {
     console.log(response);
   })
@@ -169,7 +169,7 @@ axios.interceptors.response.use(function (response) {
 
 
   //axios此时调取的数据是data
-  axios.get('/user?ID=12345')
+axios.get('/user?ID=12345')
   .then(data =>{
     console.log(data);
   })
