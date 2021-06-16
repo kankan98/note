@@ -1,7 +1,7 @@
 <font face="微软雅黑" size="2">
 
-## async
-- [async](#async)
+## async和await
+- [async和await](#async和await)
   - [1. async/await的基本用法](#1-asyncawait的基本用法)
   - [2. async/await 处理多个异步请求](#2-asyncawait-处理多个异步请求)
 ### 1. async/await的基本用法
