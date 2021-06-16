@@ -1,7 +1,9 @@
 <font face="微软雅黑" size="2">
 
 ## async
-
+- [async](#async)
+  - [1. async/await的基本用法](#1-asyncawait的基本用法)
+  - [2. async/await 处理多个异步请求](#2-asyncawait-处理多个异步请求)
 ### 1. async/await的基本用法
 - async/await是ES7引入的新语法，可以更加方便的进行异步操作
 - async关键字用于函数上（async函数的返回值是Promise实例对象）
