@@ -1,6 +1,6 @@
 <font face="微软雅黑" size="2">
 
-### Promise
+## Promise
 - [Promise](#promise)
   - [1. Promise基本用法](#1-promise基本用法)
   - [2. 基于Promise处理Ajax请求](#2-基于promise处理ajax请求)
@@ -9,7 +9,7 @@
   - [3. Promise常用api](#3-promise常用api)
     - [3.1 实例方法](#31-实例方法)
     - [3.2 对象方法](#32-对象方法)
-#### 1. Promise基本用法
+### 1. Promise基本用法
 - 实例化Promise对象，<font color="red">构造函数</font>中传递<font color="red">函数</font>，该函数用于处理异步任务
 - <font color="red">resolve</font>和<font color="red">reject</font>两个参数用于处理成功和失败两种情况，并通过对象实例<font color="red">.then</font>获取处理结果
 
@@ -30,8 +30,8 @@ p.then(function(ret){
 ```
 
 
-#### 2. 基于Promise处理Ajax请求
-##### 2.1 处理原生ajax
+### 2. 基于Promise处理Ajax请求
+#### 2.1 处理原生ajax
 ```js
 function queryData(url){
     return new Promise(function(resolve, reject){
@@ -57,7 +57,7 @@ queryData('http://localhost:3000/data')
     });
 ```
 
-##### 2.2 发送多次ajax请求
+#### 2.2 发送多次ajax请求
 ```js
 queryData('http://localhost:3000/data')
     .then(function(data){
@@ -76,13 +76,13 @@ queryData('http://localhost:3000/data')
         console.log(data);      //data = 'hello'
     });
 ```
-#### 3. Promise常用api
-##### 3.1 实例方法
+### 3. Promise常用api
+#### 3.1 实例方法
 - then： 得到异步任务的正确结果
 - catch： 获取异常信息
 - finally：成功与否都会执行（尚且不是正式标准） 
 
-##### 3.2 对象方法
+#### 3.2 对象方法
 - all：并发处理多个异步任务，所有任务都执行完成才能得到结果
 - race：并发处理多个异步任务，只要有一个任务完成就能得到结果
 ```js

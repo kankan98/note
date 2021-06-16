@@ -1,6 +1,6 @@
 <font face="微软雅黑" size="2">
 
-### Fetch
+## Fetch
 - [Fetch](#fetch)
   - [1. fetch概述](#1-fetch概述)
     - [1.1 基本特性](#11-基本特性)
@@ -15,19 +15,19 @@
   - [4. fetch响应结果](#4-fetch响应结果)
     - [4.1 响应数据格式](#41-响应数据格式)
 
-#### 1. fetch概述
-##### 1.1 基本特性
+### 1. fetch概述
+#### 1.1 基本特性
 - 更加简单的数据获取方式，功能更强大、更灵活，可以看作是xhr的升级版
 - 基于Promise实现
 
-##### 1.2 语法结构
+#### 1.2 语法结构
 ```js
 fecth('url').then(func1)
             .then(func2)
             ...
             .catch(func)
 ```
-#### 2. fetch基本用法
+### 2. fetch基本用法
 ```js
 fecth('localhost:3000/abc').then(data => {
     return data.text();     //text代指api的一部分，text的返回值是一个promise对象
@@ -41,13 +41,13 @@ app.get('/abc',(req, res) => {
 })
 ```
 
-#### 3. fetch请求参数
-##### 3.1 常用配置选项
+### 3. fetch请求参数
+#### 3.1 常用配置选项
 - method(String)：HTTP请求方法，默认为GET（GET、POST、PUT、DELETE）
 - body(string)：HTTP请求参数
 - headers(Object)：HTTP的请求头，默认为{}
 
-##### 3.2 Get请求方式的参数传递
+#### 3.2 Get请求方式的参数传递
 ```js
 fetch('localhost:3000/abc?id=123',{
     method: 'get'
@@ -90,7 +90,7 @@ app.get('/books/:id',(req, res) => {
     res.send('Restful形式的URL传递参数！' + req.params.id)
 })
 ```
-##### 3.3 DELETE请求方式的参数传递
+#### 3.3 DELETE请求方式的参数传递
 ```js
 //Delete请求方式的参数传递
 fetch('localhost:3000/books/789',{
@@ -107,7 +107,7 @@ app.delete('/books/:id',(req, res) => {
 })
 ```
 
-##### 3.4 POST请求方式的参数传递
+#### 3.4 POST请求方式的参数传递
 用法1：
 
 ```js
@@ -152,7 +152,7 @@ app.post('/books',(req, res) => {
     res.send('PUST请求传递参数！' + req.body.uname + '---' req.body.pwd)
 })
 ```
-##### 3.5 PUT请求方式的参数传递
+#### 3.5 PUT请求方式的参数传递
 ```js
 //Put请求方式的参数传递
 fetch('localhost:3000/books/123',{
@@ -176,8 +176,8 @@ app.put('/books/:id',(req, res) => {
 })
 ```
 - 和POST方式类似，PUT也有传统格式数据传参方法
-#### 4. fetch响应结果
-##### 4.1 响应数据格式
+### 4. fetch响应结果
+#### 4.1 响应数据格式
 - text()：将返回体处理成字符串类型
 - json()：返回结果和JSON.parse(responseText)一样
 ```js
