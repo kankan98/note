@@ -280,7 +280,6 @@ app.put('/books/:id',(req, res) => {
 ##### 4.1 响应数据格式
 - text()：将返回体处理成字符串类型
 - json()：返回结果和JSON.parse(responseText)一样
-- 
 ```js
 fetch('http://localhost:3000/json').then(data => {
     //return data.text();
