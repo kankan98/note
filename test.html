@@ -8,6 +8,20 @@
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
+<script>
+  async function queryData(){
+  let ret = await new Promise(function(resolve, reject){
+    setTimeout(function(){
+      resolve('hello axios!');
+    },1000);
+  })  
+  //console.log(ret.data);
+  return ret;    
+}
 
+queryData().then(function(data){
+  console.log(data);      //hello axios!
+})
+</script>
 </body>
 </html>

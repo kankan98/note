@@ -1,7 +1,20 @@
 <font face="微软雅黑" size="2">
 
 ## axios
-
+- [axios](#axios)
+  - [1. axios基本特性](#1-axios基本特性)
+  - [2.基本用法](#2基本用法)
+  - [3. 常用API](#3-常用api)
+    - [3.1 GET请求](#31-get请求)
+    - [3.2 DELETE请求](#32-delete请求)
+    - [3.3 POST请求](#33-post请求)
+    - [3.4 PUT请求](#34-put请求)
+  - [4. axios的响应结果](#4-axios的响应结果)
+  - [5. axios的全局配置](#5-axios的全局配置)
+  - [6. axios拦截器](#6-axios拦截器)
+    - [6.1 请求拦截器](#61-请求拦截器)
+    - [6.2 响应拦截器](#62-响应拦截器)
+    - [6.3 移除拦截器和添加拦截器](#63-移除拦截器和添加拦截器)
 ### 1. axios基本特性
 axios是一个基于Promise用于浏览器和node.js的HTTP客户端。
 - 支持浏览器和node.js
@@ -115,11 +128,63 @@ axios.put('/user/12345', {
     console.log(error);
   });
 ```
-#### 3.5 axios的响应结果
-<font size='2'><strong>响应结果的主要属性：</strong></font>
-- data: 实际响应回来的数据
-- headers：响应头信息
-- status：响应状态码
-- statusText：响应状态信息
+### 4. axios的响应结果
+直接响应结果是一个对象，主要属性如下：
+- **data**: 实际响应回来的数据
+- **headers**：响应头信息，如{content-type:"text/html; charset=utf-8"}
+- **status**：响应状态码，如'200'
+- **statusText**：响应状态信息，如'OK'
 
+### 5. axios的全局配置
+```js
+axios.defaults.timeout = 3000; //超时时间
+axios.defaults.baseURL = 'https://api.example.com';   //默认地址
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';  //设置请求头
+```
+### 6. axios拦截器
+#### 6.1 请求拦截器
+
+```js
+// 添加请求拦截器
+axios.interceptors.request.use(function (config) {
+    // 在发送请求之前做些什么
+    config.headers.mytoken = 'hello';
+    return config;
+  }, function (error) {
+    // 对请求错误做些什么
+    return Promise.reject(error);
+  });
+```
+#### 6.2 响应拦截器
+```js
+// 添加响应拦截器
+axios.interceptors.response.use(function (response) {
+    // 对响应数据做点什么
+    let data = response.data;
+    return data;
+  }, function (error) {
+    // 对响应错误做点什么
+    return Promise.reject(error);
+  });
+
+
+  //axios此时调取的数据是data
+  axios.get('/user?ID=12345')
+  .then(data =>{
+    console.log(data);
+  })
+```
+#### 6.3 移除拦截器和添加拦截器
+```js
+//移除拦截器
+const myInterceptor = axios.interceptors.request.use(function () {/*...*/});
+axios.interceptors.request.eject(myInterceptor);
+```
+
+```js
+//为自定义axios实例添加拦截器
+const instance = axios.create();
+instance.interceptors.request.use(function () {/*...*/});
+
+```
 
