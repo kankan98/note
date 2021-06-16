@@ -237,7 +237,7 @@ fetch('localhost:3000/books',{
     body: JSON.stringify({
         uname: '张三',  //json格式的参数
         age: '123'
-    })
+    }),
     headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
     }
@@ -260,7 +260,7 @@ fetch('localhost:3000/books/123',{
     body: JSON.stringify({
         uname: '张三',  //json格式的参数
         pwd: '789'
-    });
+    }),
     headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
     }
