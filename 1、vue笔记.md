@@ -1,4 +1,7 @@
+<font face="微软雅黑" size="2">
+
 ## vue笔记
+
 - [vue笔记](#vue笔记)
   - [一、Promise](#一promise)
     - [1. Promise基本用法](#1-promise基本用法)
@@ -15,7 +18,7 @@
     - [2. fetch基本用法](#2-fetch基本用法)
     - [3. fetch请求参数](#3-fetch请求参数)
       - [3.1 常用配置选项](#31-常用配置选项)
-      - [3.2Get请求方式的参数传递](#32get请求方式的参数传递)
+      - [3.2 Get请求方式的参数传递](#32-get请求方式的参数传递)
       - [3.3 DELETE请求方式的参数传递](#33-delete请求方式的参数传递)
       - [3.4 POST请求方式的参数传递](#34-post请求方式的参数传递)
       - [3.5 PUT请求方式的参数传递](#35-put请求方式的参数传递)
@@ -144,7 +147,7 @@ app.get('/abc',(req, res) => {
 - body(string)：HTTP请求参数
 - headers(Object)：HTTP的请求头，默认为{}
 
-##### 3.2Get请求方式的参数传递
+##### 3.2 Get请求方式的参数传递
 ```js
 fetch('localhost:3000/abc?id=123',{
     method: 'get'
@@ -306,6 +309,7 @@ app.get('/json',(req, res) => {
 ```
 
 <small> 用text格式：</small>
+用text格式：
 
 ```js
 fetch('http://localhost:3000/json').then(data => {
