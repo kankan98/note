@@ -39,7 +39,7 @@ Git相比svn在回退的时候优势更明显，因为commit的成本小并且�
 在Git中每次提交都会生成一个节点,而每个节点都会有一个哈希值作为唯一标示，多次提交会形成一个线性节点链（不考虑merge的情况），如图1-1
 
 ![](../images/git/1-1.image)
-<center>图1-1</center>
+<p align="center">图1-1</p>
 
 节点上方是通过 SHA1计算的哈希值
 
@@ -67,7 +67,7 @@ HEAD是Git中非常重要的一个概念，你可以称它为指针或者引用�
 面对上面的问题通过引入分支概念便可优雅的解决，如图2-1
 
 ![](../images/git/2-1.image)
-<center>图2-1</center>
+<p align="center">图2-1</p>
 
 > - 先看左边示意图，假设C2节点既是v1.0版本代码，上线后在C2的基础上新建一个分支ft-1.0
 > - 再看右边示意图，在v1.0上线后可在master分支开发v1.1内容，收到QA同学反馈后提交v1.1代码生成节点C3，随后切换到ft-1.0分支做bug修复，修复完成后提交代码生成节点C4，然后再切换到master分支并合并ft-1.0分支，到此我们就解决了上面提出的问题
@@ -146,7 +146,7 @@ git merge 分支名/节点哈希值
 由于分支 ft-1 完全领先分支 ft-2 即 ft-1 完全包含 ft-2，所以 ft-2 执行了 “git merge ft-1” 后会触发 fast forward(快速合并)，此时两个分支指向同一节点，这是最理想的状态。但是实际开发中我们往往碰到是是下面这种情况：如图3-2(左)
 
 ![](../images/git/3-2.image)
-<center>图3-2</center>
+<p align="center">图3-2</p>
 这种情况就不能直接合了，当 ft-2 执行了 “git merge ft-1” 后 Git 会将节点 C3 、 C4 合并随后生成一个新节点 C5 ，最后将 ft-2 指向 C5。如图3-2(右)
 
 ##### 注意点：
@@ -160,7 +160,7 @@ git rebase 分支名/节点哈希值
 与 merge 不同的是 rebase 合并看起来不会产生新的节点(实际上是会产生的，只是做了一次复制)，而是将需要合并的节点直接累加 如图3-3
 
 ![](../images/git/3-3.image)
-<center>图3-3</center>
+<p align="center">图3-3</p>
 
 当左边示意图的 ft-1.0 执行了 git rebase master 后会将 C4 节点复制一份到 C3 后面，也就是 C4' ，C4 与 C4' 相对应，但是哈希值却不一样。
  rebase 相比于 merge 提交历史更加线性、干净，使并行的开发流程看起来像串行，更符合我们的直觉。既然 rebase 这么好用是不是可以抛弃 merge 了？其实也不是了，下面我罗列一些 merge 和 rebase 的优缺点：
@@ -183,7 +183,7 @@ git cherry-pick 节点哈希值
 ```
 
 ![](../images/git/3-4.image)
-<center>图3-4</center>
+<p align="center">图3-4</p>
 假设当前分支是 master，执行了 git cherry-pick C3(哈希值)，C4 （哈希值）命令后会直接将 C3、C4 节点抓过来放在后面，对应 C3' 和 C4'
 
 #### 3.4 回退相关
@@ -227,7 +227,7 @@ git clone 仓库地址
 前面的章节我也有提到过，**clone**不仅仅是复制代码，它还会把远程仓库的**引用(分支/HEAD)**一并取下保存在本地，如图3-5所示：
 
 ![](../images/git/3-4.image)
-<center>图3-5</center>
+<p align="center">图3-5</p>
 
 其中 origin/master 和 origin/ft-1 为远程仓库的分支，而远程的这些引用状态是不会实时更新到本地的，比如远程仓库 origin/master 分支增加了一次提交，此时本地是感知不到的，所以本地的 origin/master 分支依旧指向 C4 节点。我们可以通过 fetch 命令来手动更新远程仓库状态
 
