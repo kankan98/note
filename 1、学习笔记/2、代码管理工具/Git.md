@@ -141,7 +141,8 @@ git merge 分支名/节点哈希值
 如果需要合并的分支完全领先于当前分支，如图3-1所示
 
 ![](../images/git/3-1.image)
-<center>图3-1</center>
+<p align='center'>图3-1</p>
+
 由于分支 ft-1 完全领先分支 ft-2 即 ft-1 完全包含 ft-2，所以 ft-2 执行了 “git merge ft-1” 后会触发 fast forward(快速合并)，此时两个分支指向同一节点，这是最理想的状态。但是实际开发中我们往往碰到是是下面这种情况：如图3-2(左)
 
 ![](../images/git/3-2.image)
@@ -226,7 +227,7 @@ git clone 仓库地址
 前面的章节我也有提到过，**clone**不仅仅是复制代码，它还会把远程仓库的**引用(分支/HEAD)**一并取下保存在本地，如图3-5所示：
 
 ![](../images/git/3-4.image)
-<center>图3-4</center>
+<center>图3-5</center>
 
 其中 origin/master 和 origin/ft-1 为远程仓库的分支，而远程的这些引用状态是不会实时更新到本地的，比如远程仓库 origin/master 分支增加了一次提交，此时本地是感知不到的，所以本地的 origin/master 分支依旧指向 C4 节点。我们可以通过 fetch 命令来手动更新远程仓库状态
 
