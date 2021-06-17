@@ -38,9 +38,11 @@ Git相比svn在回退的时候优势更明显，因为commit的成本小并且�
 
 在Git中每次提交都会生成一个节点,而每个节点都会有一个哈希值作为唯一标示，多次提交会形成一个线性节点链（不考虑merge的情况），如图1-1
 
-![](../images/git/1-1.image)
-<p align="center">图1-1</p>
+![](../images/git/1-1.image )
 
+<p align="center">
+ <img src="../images/git/1-1.image" width = "800" alt="图片名称" align=center /></p>
+<p align="center">图1-1</p>
 节点上方是通过 SHA1计算的哈希值
 
 C2节点包含C1提交内容,同样C3节点包含C1、C2提交内容
@@ -270,5 +272,5 @@ git push 远程分支名
 pull的本质其实就是 **fetch + merge**，也可以加入 <strong>--rebase</strong> 通过 <strong>rebase</strong> 方式合并
 
 
-> 转自：掘金-Bezier
+> 转自：掘金-Bezier<br>
 > 链接：https://juejin.cn/post/6895246702614806542
