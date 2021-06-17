@@ -231,6 +231,9 @@ git commit --amend
 ```js
 //回退N个提交
 git reset HEAD~N
+
+//回退到目标版本号
+git reset --hard 版本号
 ```
  **reset** 和 **相对引用** 很像，区别是**reset会使分支和HEAD一并回退。**
 
