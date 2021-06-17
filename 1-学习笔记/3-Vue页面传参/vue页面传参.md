@@ -43,7 +43,7 @@ export default {
 方式2：使用 **name: 路由名称，params: 参数** 方式传参<br>
 
 ```js
-//news.vue
+//News.vue
 <template>
   <div class="news">
       <router-link :to="{ name: 'Details',params:{ id : 2 }}">详情2</router-link>
@@ -129,7 +129,7 @@ export default router
 ### 二、编程式路由传参
 方式1：同上方式1
 ```js
-//news.vue
+//News.vue
 <template>
   <div class="news">
       <button click="goDetails"></button>
@@ -165,7 +165,7 @@ Detail.vue文件同一：方式1
 
 方式2：同上方式2
 ```js
-//news.vue
+//News.vue
 <template>
   <div class="news">
       <button click="goDetails"></button>
@@ -253,7 +253,7 @@ export default router
 ```
 
 ```js
-//news.vue
+//News.vue
 <template>
   <div id="news">
       <button @click="goDetails">去详情</button>
