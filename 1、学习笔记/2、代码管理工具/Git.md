@@ -39,9 +39,7 @@ Git相比svn在回退的时候优势更明显，因为commit的成本小并且�
 
 在Git中每次提交都会生成一个节点,而每个节点都会有一个哈希值作为唯一标示，多次提交会形成一个线性节点链（不考虑merge的情况），如图1-1
 
-<p align="center">
-  <img src="../images/git/1-1.image" width = "800" alt="图片名称" align=center />
- </p>
+![image](https://github.com/dengkui123/note/raw/main/1%E3%80%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/images/git/1-1.image)
 <p align="center">图1-1</p>
 节点上方是通过 SHA1计算的哈希值
 
