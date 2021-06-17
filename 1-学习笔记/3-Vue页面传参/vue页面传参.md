@@ -7,7 +7,7 @@
   - [三、路由组件传参](#三路由组件传参)
   - [总结：](#总结)
 ### 一、标签跳转及传参
-方式1：使用 <font color=red>path: 路径，query: 参数</font> 方式传参<br>
+方式1：使用 **path: 路径，query: 参数** 方式传参<br>
 
 ```js
 
@@ -40,9 +40,7 @@ export default {
 }
 </script>
 ```
-方式2：使用 <font color=red>name: 路由名称，params: 参数</font> 方式传参<br>
-在js中：用this.$route.params.id取值。<br>
-在组件中：用{{ $route.params.id}}取值。
+方式2：使用 **name: 路由名称，params: 参数** 方式传参<br>
 
 ```js
 //news.vue
@@ -70,7 +68,7 @@ export default {
     }
   },
   mounted(){
-    this.data = this.$route.query.id;    
+    this.data = this.$route.params.id;
   },
 }
 </script>
