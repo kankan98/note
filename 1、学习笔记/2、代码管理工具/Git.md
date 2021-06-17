@@ -21,6 +21,7 @@
     - [3.5 远程相关](#35-远程相关)
       - [小提示：](#小提示)
   - [综上所述](#综上所述)
+
 ### 1. 基本概念
 #### 1.1 Git的优势
 1、Git是一个开源的分布式代码管理工具，可以有效、高速地处理从很小到非常大的项目版本管理。
@@ -38,10 +39,9 @@ Git相比svn在回退的时候优势更明显，因为commit的成本小并且�
 
 在Git中每次提交都会生成一个节点,而每个节点都会有一个哈希值作为唯一标示，多次提交会形成一个线性节点链（不考虑merge的情况），如图1-1
 
-![](../images/git/1-1.image )
-
 <p align="center">
- <img src="../images/git/1-1.image" width = "800" alt="图片名称" align=center /></p>
+  <img src="../images/git/1-1.image" width = "800" alt="图片名称" align=center />
+ </p>
 <p align="center">图1-1</p>
 节点上方是通过 SHA1计算的哈希值
 
@@ -68,7 +68,9 @@ HEAD是Git中非常重要的一个概念，你可以称它为指针或者引用�
 
 面对上面的问题通过引入分支概念便可优雅的解决，如图2-1
 
-![](../images/git/2-1.image)
+<p align="center">
+  <img src="../images/git/2-1.image" width = "800" alt="图片名称" align=center />
+ </p>
 <p align="center">图2-1</p>
 
 > - 先看左边示意图，假设C2节点既是v1.0版本代码，上线后在C2的基础上新建一个分支ft-1.0
@@ -132,7 +134,7 @@ git checkout -b 分支名
 git branch -d 分支名
 ```
 #### 3.3 合并相关
-关于合并的命令是最难掌握同时也是最重要的。我们常用的合并命令大概有三个 <strong>merge、rebase、cherry-pick</strong>
+关于合并的命令是最难掌握同时也是最重要的。我们常用的合并命令大概有三个 <strong>merge、rebase、cherry-pick。</strong>
 
 <strong>merge</strong>
 
@@ -142,12 +144,16 @@ git merge 分支名/节点哈希值
 ```
 如果需要合并的分支完全领先于当前分支，如图3-1所示
 
-![](../images/git/3-1.image)
+<p align="center">
+  <img src="../images/git/3-1.image" width = "800" alt="图片名称" align=center />
+ </p>
 <p align='center'>图3-1</p>
 
 由于分支 ft-1 完全领先分支 ft-2 即 ft-1 完全包含 ft-2，所以 ft-2 执行了 “git merge ft-1” 后会触发 fast forward(快速合并)，此时两个分支指向同一节点，这是最理想的状态。但是实际开发中我们往往碰到是是下面这种情况：如图3-2(左)
 
-![](../images/git/3-2.image)
+<p align="center">
+  <img src="../images/git/3-2.image" width = "800" alt="图片名称" align=center />
+ </p>
 <p align="center">图3-2</p>
 这种情况就不能直接合了，当 ft-2 执行了 “git merge ft-1” 后 Git 会将节点 C3 、 C4 合并随后生成一个新节点 C5 ，最后将 ft-2 指向 C5。如图3-2(右)
 
@@ -155,13 +161,16 @@ git merge 分支名/节点哈希值
 >如果C3、C4同时修改了同一个文件中的同一句代码，这个时候合并会出错，因为Git不知道该以哪个节点为标准，所以这个时候需要我们自己手动合并代码
 
 <strong>rebase</strong>
+
 **rebase**也是一种合并指令，命令行如下：
 ```js
 git rebase 分支名/节点哈希值
 ```
 与 merge 不同的是 rebase 合并看起来不会产生新的节点(实际上是会产生的，只是做了一次复制)，而是将需要合并的节点直接累加 如图3-3
 
-![](../images/git/3-3.image)
+<p align="center">
+  <img src="../images/git/3-3.image" width = "800" alt="图片名称" align=center />
+ </p>
 <p align="center">图3-3</p>
 
 当左边示意图的 ft-1.0 执行了 git rebase master 后会将 C4 节点复制一份到 C3 后面，也就是 C4' ，C4 与 C4' 相对应，但是哈希值却不一样。
@@ -184,7 +193,9 @@ rebase优缺点：
 git cherry-pick 节点哈希值
 ```
 
-![](../images/git/3-4.image)
+<p align="center">
+  <img src="../images/git/3-4.image" width = "800" alt="图片名称" align=center />
+ </p>
 <p align="center">图3-4</p>
 假设当前分支是 master，执行了 git cherry-pick C3(哈希值)，C4 （哈希值）命令后会直接将 C3、C4 节点抓过来放在后面，对应 C3' 和 C4'
 
@@ -214,21 +225,36 @@ git commit --amend
 ```
 <strong>回退</strong>
 
+<strong>reset</strong>
+
 回退场景在平时开发中还是比较常见的，比如你巴拉巴拉写了一大堆代码然后提交，后面发现写的有问题，于是你想将代码回到前一个提交，这种场景可以通过**reset**解决，具体命令如下：
 ```js
 //回退N个提交
 git reset HEAD~N
 ```
  **reset** 和 **相对引用** 很像，区别是**reset会使分支和HEAD一并回退。**
-revert
+
+**适用场景：** 如果想恢复到之前某个提交的版本，且那个版本之后提交的版本我们都不要了，就可以用这种方法。
+
+<strong>revert</strong>
+
+原理： git revert是用于“反做”某一个版本，生成一个新的版本，以达到撤销该版本的修改的目的。
+
+反做
+```js
+git revert -n 版本号
+```
+**适用场景：** 如果我们想撤销之前的某一版本，但是又想保留该目标版本后面的版本，记录下这整个版本变动流程，就可以用这种方法。
 #### 3.5 远程相关
 当我们接触一个新项目时，第一件事情肯定是要把它的代码拿下来，在Git中可以通过clone从远程仓库复制一份代码到本地，具体命令如下：
 ```js
 git clone 仓库地址
 ```
-前面的章节我也有提到过，**clone**不仅仅是复制代码，它还会把远程仓库的**引用(分支/HEAD)**一并取下保存在本地，如图3-5所示：
+前面的章节我也有提到过，**clone**不仅仅是复制代码，它还会把远程仓库的 引用(分支/HEAD) 一并取下保存在本地，如图3-5所示：
 
-![](../images/git/3-4.image)
+<p align="center">
+  <img src="../images/git/3-5.image" width = "800" alt="图片名称" align=center />
+ </p>
 <p align="center">图3-5</p>
 
 其中 origin/master 和 origin/ft-1 为远程仓库的分支，而远程的这些引用状态是不会实时更新到本地的，比如远程仓库 origin/master 分支增加了一次提交，此时本地是感知不到的，所以本地的 origin/master 分支依旧指向 C4 节点。我们可以通过 fetch 命令来手动更新远程仓库状态
