@@ -86,7 +86,7 @@ webpack的4.x版本中默认约定：
 1. 运行 **npm install html-webpack-plugin -D** 命令，安装生成预览页面的插件
 2. 修改 webpack.config.js 文件头部区域，添加如下配置信息：
    ```js
-   //导入生成预览页面的擦火箭，得到一个构造函数
+   //导入生成预览页面插件，得到一个构造函数
    const HtmlWebpackPlugin = require('html-webpack-plugin')
    const htmlPlugin = new HtmlWebpackPlugin({   //创建插件的实例对象
      template: './src/index.html',    //指定要用到的模板文件
