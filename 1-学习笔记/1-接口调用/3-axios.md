@@ -31,7 +31,7 @@ npm install axios
 ```
 ### 2.基本用法
 ```js
-axios.get('.adata')
+axios.get('/adata')
     .then(ret => {
       //data属性名称是固定的，用于获取后台响应的数据
       console.log(ret.data)
@@ -108,8 +108,8 @@ axios.post('/user', {
 2、通过URLSearchParams传递参数（application/x-www-form-urlencoded）
 ```js
 const params = new URLSearchParams();
-params.append('param1','value1');
-params.append('param2','value2');
+params.append('firstName','Fre');
+params.append('lastName','Flintstone2');
 axios.post('/api/test',params).then(response =>{
   console.log(response)
 })
