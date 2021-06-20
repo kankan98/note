@@ -37,7 +37,6 @@ axios.get('/adata')
       console.log(ret.data)
     })
 ```
-
 ### 3. 常用API
 <strong>get、post、delete、put</strong>
 
@@ -155,6 +154,7 @@ axios.interceptors.request.use(function (config) {
     return Promise.reject(error);
   });
 ```
+
 #### 6.2 响应拦截器
 ```js
 // 添加响应拦截器
@@ -187,4 +187,6 @@ const instance = axios.create();
 instance.interceptors.request.use(function () {/*...*/});
 
 ```
+
+
 
