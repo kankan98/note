@@ -1,7 +1,26 @@
 <font face="微软雅黑" size="2">
 
 ## Vuex
-
+- [Vuex](#vuex)
+  - [1. Vuex概述](#1-vuex概述)
+    - [1.1 组件之间共享数据的方式](#11-组件之间共享数据的方式)
+    - [1.2 Vuex是什么](#12-vuex是什么)
+    - [1.3 Vuex的作用](#13-vuex的作用)
+  - [2. Vuex的基本使用](#2-vuex的基本使用)
+  - [3. Vuex 的核心概念](#3-vuex-的核心概念)
+    - [3.1 核心概念概述](#31-核心概念概述)
+    - [3.2 State](#32-state)
+      - [3.2.1 组件访问 State 中数据的第一种方式：](#321-组件访问-state-中数据的第一种方式)
+      - [3.2.2 组件访问 State 中数据的第二种方式：](#322-组件访问-state-中数据的第二种方式)
+    - [3.3 Mutation](#33-mutation)
+      - [3.3.1 触发 mutations 的第一种方式](#331-触发-mutations-的第一种方式)
+      - [3.3.2 触发 mutations 的第二种方式：](#332-触发-mutations-的第二种方式)
+    - [3.4 Action](#34-action)
+      - [3.4.1 触发 actions 的第一种方式](#341-触发-actions-的第一种方式)
+      - [3.4.2 触发 actions 的第二种方式：](#342-触发-actions-的第二种方式)
+    - [3.5 Getter](#35-getter)
+      - [3.5.1 使用 getters 的第一种方式：](#351-使用-getters-的第一种方式)
+      - [3.5.2 使用 getters 的第二种方式：](#352-使用-getters-的第二种方式)
 ### 1. Vuex概述
 #### 1.1 组件之间共享数据的方式
 1. 父向子传值：`v-bind` 属性绑定
@@ -74,10 +93,10 @@ const store = new Vue.Store({
 })
 ```
 
-1. 组件访问 **State** 中数据的**第一种方式**：
+##### 3.2.1 组件访问 State 中数据的第一种方式：
 `this.$store.state.全局数据名称`
 
-2. 组件访问 **State** 中数据的**第二种方式**：
+##### 3.2.2 组件访问 State 中数据的第二种方式：
 ```js
 //1. 从 vuex 中按需导入 mapState 函数
 import { mapState } from 'vuex'
@@ -91,7 +110,7 @@ computed: {
 ```
 
 #### 3.3 Mutation
-##### 3.3.1 Mutation 用于变更 Store 中的数据
+**Mutation** 用于变更 Store 中的数据，触发 mutations 的第一种方式
 
 1. **只能**通过 `mutation` 变更 `Store` 数据，不可以直接操作 Store 中的数据。
 2. 通过这种方式虽然操作起来稍微繁琐一些，但是可以集中监控所有数据的变化。
@@ -110,7 +129,7 @@ const store = new Vuex.Store({
   }
 })
 ```
-- 触发mutation
+##### 3.3.1 触发 mutations 的第一种方式
 ```js 
 //触发mutation
 methods: {
@@ -145,7 +164,7 @@ methods: {
   }
 }
 ```
-##### 3.3.2 `this.$store.commit()`是触发 mutations 的第一种方式，触发 mutations 的**第二种方式**：
+##### 3.3.2 触发 mutations 的第二种方式：
 ```js
 //1.从 vuex 中按需导入mapMutations 函数
 import {mapMutations} from 'vuex'
@@ -160,7 +179,7 @@ methods: {
 > tips: 不要在 **mutations** 函数中执行异步操作
 
 #### 3.4 Action
-##### 3.4.1 **Action** 用于处理异步任务。
+**Action 用于处理异步任务**。
 如果通过异步操作变更数据，必须通过Action，而不能使用 Mutation ，但是在 Action 中还是要通过触发 Mutation 的方式间接变更数据。 
 ```js
 //定义 Action
@@ -182,7 +201,7 @@ const store = new Vuex.Store({
   }
 })
 ```
-
+##### 3.4.1 触发 actions 的第一种方式
 ```js
 //触发 Action
 methods: {
@@ -224,7 +243,7 @@ methods: {
 }
 ```
 
-##### 3.4.3 触发 actions 的第二种方式：
+##### 3.4.2 触发 actions 的第二种方式：
 ```js
 //1. 从 vuex 中按需导入 mapActions 函数
 import { mapActions} from 'vuex'
@@ -254,11 +273,11 @@ const store = new Vuex.Store({
   }
 })
 ```
-**使用 getters 的第一种方式：**
+##### 3.5.1 使用 getters 的第一种方式：
 ```js
 this.$store.getters.名称
 ```
-**使用 getters 的第二种方式：**
+##### 3.5.2 使用 getters 的第二种方式：
 ```js
 import [ mapGetters ] from 'vuex'
 
