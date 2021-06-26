@@ -279,7 +279,7 @@ this.$store.getters.名称
 ```
 ##### 3.5.2 使用 getters 的第二种方式：
 ```js
-import [ mapGetters ] from 'vuex'
+import { mapGetters } from 'vuex'
 
 computed: {
   ...mapGetters(['showNum'])
