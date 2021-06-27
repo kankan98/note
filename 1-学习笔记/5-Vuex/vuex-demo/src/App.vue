@@ -28,11 +28,12 @@
         <a @click="clear">清空已完成</a>
       </div>
     </a-list>
+    <button @click="getData">获取数据</button>
   </div>
 </template>
 
 <script>
-
+import axios from 'axios';
 import { mapState, mapGetters } from 'vuex'
 export default {
   name: 'app',
@@ -82,6 +83,13 @@ export default {
     changeList(key) {
       // console.log(key);
       this.$store.commit('changeViewKey', key);
+    },
+    async getData() {
+      const res = await axios.post('http://157.122.54.189:9083/login',{
+        username:'dengkui',
+        password:'dengkui'
+      });
+      console.log(res);
     }
   }
 }
