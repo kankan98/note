@@ -373,26 +373,27 @@ export default store
 </template>
 
 <script>
-
-data(){
-  return{}
-},
-computed: {},
-methods: {
-  btnAdd() {
-    //调用 commit 函数，触发 mutations 时携带参数
-    // 触发 mutations 的第一种方式
-    this.$store.commit('add');
-  }
-  btnAddN() {
-    this.$store.commit('addN',3);
+export default {
+  data(){
+    return{}
   },
-  btnAddAsync() {
-    //触发 acions 的第一种方式，dispatch函数专门用来触发action
-    this.$store.dispatch('addAsync');
-  }
-  btnAddNAsync() {
-    this.$store.dispatch('addNAsync', 5)
+  computed: {},
+  methods: {
+    btnAdd() {
+      //调用 commit 函数，触发 mutations 时携带参数
+      // 触发 mutations 的第一种方式
+      this.$store.commit('add');
+    }
+    btnAddN() {
+      this.$store.commit('addN',3);
+    },
+    btnAddAsync() {
+      //触发 acions 的第一种方式，dispatch函数专门用来触发action
+      this.$store.dispatch('addAsync');
+    }
+    btnAddNAsync() {
+      this.$store.dispatch('addNAsync', 5)
+    }
   }
 }
 </script>  
@@ -460,20 +461,22 @@ export default store
 </div>
 </template>
 
-import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
-
 <script>
-data(){
-  return{}
-},
-computed: {
-  ...mapState(['count'])
-  ...mapGetters(['showNum'])
-  
-},
-methods:{
-  // 触发 mutations 的第二种方式
-  ...mapMutations: (['sub','subN']),
-  ...mapActions(['subAsync','subNAsync']),
+import { mapState, mapMutations, mapActions, mapGetters } from 'vuex',
+export default {
+  data(){
+    return{}
+  },
+  computed: {
+    ...mapState(['count'])
+    ...mapGetters(['showNum'])
+    
+  },
+  methods:{
+    // 触发 mutations 的第二种方式
+    ...mapMutations: (['sub','subN']),
+    ...mapActions(['subAsync','subNAsync']),
+  }
+}
 </script>  
 ```
