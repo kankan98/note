@@ -13,10 +13,10 @@
       - [3.2.1 组件访问 State 中数据的第一种方式：](#321-组件访问-state-中数据的第一种方式)
       - [3.2.2 组件访问 State 中数据的第二种方式：](#322-组件访问-state-中数据的第二种方式)
     - [3.3 Mutation](#33-mutation)
-      - [3.3.1 触发 mutations 的第一种方式](#331-触发-mutations-的第一种方式)
+      - [3.3.1 触发 mutations 的第一种方式:](#331-触发-mutations-的第一种方式)
       - [3.3.2 触发 mutations 的第二种方式：](#332-触发-mutations-的第二种方式)
     - [3.4 Action](#34-action)
-      - [3.4.1 触发 actions 的第一种方式](#341-触发-actions-的第一种方式)
+      - [3.4.1 触发 actions 的第一种方式:](#341-触发-actions-的第一种方式)
       - [3.4.2 触发 actions 的第二种方式：](#342-触发-actions-的第二种方式)
     - [3.5 Getter](#35-getter)
       - [3.5.1 使用 getters 的第一种方式：](#351-使用-getters-的第一种方式)
@@ -137,7 +137,7 @@ const store = new Vuex.Store({
   }
 })
 ```
-##### 3.3.1 触发 mutations 的第一种方式
+##### 3.3.1 触发 mutations 的第一种方式:
 ```js 
 //触发mutation
 methods: {
@@ -209,7 +209,7 @@ const store = new Vuex.Store({
   }
 })
 ```
-##### 3.4.1 触发 actions 的第一种方式
+##### 3.4.1 触发 actions 的第一种方式:
 ```js
 //触发 Action
 methods: {
