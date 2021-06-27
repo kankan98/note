@@ -21,6 +21,14 @@
     - [3.5 Getter](#35-getter)
       - [3.5.1 使用 getters 的第一种方式：](#351-使用-getters-的第一种方式)
       - [3.5.2 使用 getters 的第二种方式：](#352-使用-getters-的第二种方式)
+  - [4. 使用汇总](#4-使用汇总)
+    - [4.1 main文件](#41-main文件)
+    - [4.2 方式一](#42-方式一)
+      - [4.2.1 store文件](#421-store文件)
+      - [4.2.2 组件1](#422-组件1)
+    - [4.3 方式2](#43-方式2)
+      - [4.3.1 store文件](#431-store文件)
+      - [4.3.2 组件2](#432-组件2)
 ### 1. Vuex概述
 #### 1.1 组件之间共享数据的方式
 1. 父向子传值：`v-bind` 属性绑定
@@ -206,7 +214,7 @@ const store = new Vuex.Store({
 //触发 Action
 methods: {
   handle() {
-    //触发 acions 的第一种方式
+    //触发 acions 的第一种方式，dispatch函数专门用来触发action
     this.$store.dispatch('addAsync')
   }
 }
@@ -227,7 +235,7 @@ const store = new Vuex.Store({
       setTimeout(() => {
         //在 actions 中，不能直接修改 state 中的数据
         //必须通过 context.commit() 触发某个 mutation 才行
-        context.commit('add', step)
+        context.commit('addN', step)
       }, 1000)
     }
   }
@@ -284,4 +292,188 @@ import { mapGetters } from 'vuex'
 computed: {
   ...mapGetters(['showNum'])
 }
+```
+### 4. 使用汇总
+#### 4.1 main文件
+```js
+//main.js
+...
+import store from './store'
+
+new Vue({
+  el: 'app',
+  render: h => h(app),
+  router,
+  //将创建的共享数据对象，挂载到 Vue 实例中
+  //所有的组件，就可以直接从 store 中获取全局的数据了
+  store,
+}).$mount('#app')
+```
+#### 4.2 方式一
+##### 4.2.1 store文件
+```js
+//store.js文件（1）
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+Vue.use(Vuex)
+
+const store = new Vuex.Store({
+//Store 中存放的就是全局共享的数据
+  state: { 
+    count: 0
+  },
+  //只能通过 mutation 变更 Store 数据，不可以直接操作 Store 中的数据。
+  mutations: {
+    add(state) {
+      //变更状态
+      state.count++;
+    },
+    addN(state, step) {
+       //变更状态
+      state.count += step;
+    },
+  },
+  action: {
+    addAsync(context) {
+      setTimeout(() => {
+        //在 actions 中，不能直接修改 state 中的数据
+        //必须通过 context.commit() 触发某个 mutation 才行
+        context.commit('add')
+      }, 1000)
+    },
+    addNAsync(context, step) {
+      setTimeout(() => {
+        context.commit('addN', step)
+      }, 1000)
+    },
+  },
+  getters: {
+    showNum(state) {
+      return '当前最新的数量是:'+ state.count
+    },
+  },
+})
+
+export default store
+```
+##### 4.2.2 组件1
+```js
+//组件1（使用方法1）
+<template>
+<div>
+  <h1>这是组件1使用vuex传递数据的方法</h1>
+  <div>现在的count为{{ store.state.count }}<div>
+  <div>{{$store.getters.showNum}}</div>  
+  <button @click="btnAdd">加1</button>
+  <button @click="btnAddN">加N</button>
+  <button @click="btnAddAsync">异步加1</button>
+  <button @click="btnAddNAsync">异步加N</button> 
+</div>
+</template>
+
+<script>
+
+data(){
+  return{}
+},
+computed: {},
+methods: {
+  btnAdd() {
+    //调用 commit 函数，触发 mutations 时携带参数
+    // 触发 mutations 的第一种方式
+    this.$store.commit('add');
+  }
+  btnAddN() {
+    this.$store.commit('addN',3);
+  },
+  btnAddAsync() {
+    //触发 acions 的第一种方式，dispatch函数专门用来触发action
+    this.$store.dispatch('addAsync');
+  }
+  btnAddNAsync() {
+    this.$store.dispatch('addNAsync', 5)
+  }
+}
+</script>  
+
+```
+#### 4.3 方式2
+
+##### 4.3.1 store文件
+```js
+//store.js文件（2）
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+Vue.use(Vuex)
+
+const store = new Vuex.Store({
+//Store 中存放的就是全局共享的数据
+  state: { 
+    count: 0
+  },
+  //只能通过 mutation 变更 Store 数据，不可以直接操作 Store 中的数据。
+  mutations: {
+    sub(state) {
+       //变更状态
+      state.count--;
+    },
+    subN(state, step) {
+       //变更状态
+      state.count -= step;
+    },
+  },
+  action: {
+    subAsync(context) {
+      setTimeout(() => {
+        context.commit('sub')
+      }, 1000)
+    },
+    subNAsync(context, step) {
+      setTimeout(() => {
+        context.commit('subN', step)
+      }, 1000)
+    },
+  },
+  getters: {
+    showNum(state) {
+      return '当前最新的数量是:'+ state.count
+    },
+  },
+})
+
+export default store
+```
+##### 4.3.2 组件2
+```js
+//组件2（使用方法2）
+<template>
+<div>
+  <h1>这是组件2使用vuex传递数据的方法</h1>
+  <div>现在的count为{{ count }}<div>
+  <div>{{showNum}}</div>
+  <button @click="sub()">减1</button>
+  <button @click="subN(3)">减N</button>
+  <button @click="subAsync()">异步减1</button>
+  <button @click="subNAsync(5)">异步减N</button> 
+</div>
+</template>
+
+import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
+
+<script>
+data(){
+  return{}
+},
+computed: {
+  ...mapState(['count'])
+  ...mapGetters(['showNum'])
+  
+},
+methods:{
+  // 触发 mutations 的第二种方式
+  ...mapMutations: (['sub','subN']),
+  ...mapActions(['subAsync','subNAsync']),
+</script>  
 ```
