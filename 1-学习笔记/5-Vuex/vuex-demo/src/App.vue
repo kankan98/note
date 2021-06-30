@@ -33,7 +33,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import { mapState, mapGetters } from 'vuex'
 export default {
   name: 'app',
@@ -85,7 +84,7 @@ export default {
       this.$store.commit('changeViewKey', key);
     },
     async getData() {
-      const res = await axios.post('http://157.122.54.189:9083/login',{
+      const res = await this.axios.post('http://157.122.54.189:9083/login',{
         username:'dengkui',
         password:'dengkui'
       });
