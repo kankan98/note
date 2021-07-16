@@ -6,6 +6,7 @@
   - [2. async/await 处理多个异步请求](#2-asyncawait-处理多个异步请求)
   - [3. 接口调用优化过程](#3-接口调用优化过程)
   - [4. async/await + fetch案例](#4-asyncawait--fetch案例)
+  - [5. 在非 async 函数中调用 async 函数](#5-在非-async-函数中调用-async-函数)
 ### 1. async/await的基本用法
 - async/await是ES7引入的新语法，可以更加方便的进行异步操作
 - async关键字用于函数上（async函数的返回值是Promise实例对象）
@@ -117,6 +118,7 @@ mounted(){
 ```
 
 ### 4. async/await + fetch案例
+async/await+fetch实现：询问用户名，直到 github 返回一个合法的用户
 ```js
 class HttpError extends Error {
   constructor(response) {
@@ -181,4 +183,20 @@ async function demoGithubUser() {
   }
 }
 demoGithubUser();
+```
+
+### 5. 在非 async 函数中调用 async 函数
+```js
+async function wait() {
+  await new Promise(resolve => setTimeout(resolve, 1000));
+
+  return 10;
+}
+
+function f() {
+  // 1 秒后显示 10
+  wait().then(result => alert(result));
+}
+
+f();
 ```
