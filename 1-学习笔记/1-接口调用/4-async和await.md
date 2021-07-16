@@ -5,6 +5,7 @@
   - [1. async/await的基本用法](#1-asyncawait的基本用法)
   - [2. async/await 处理多个异步请求](#2-asyncawait-处理多个异步请求)
   - [3. 接口调用优化过程](#3-接口调用优化过程)
+  - [4. async/await + fetch案例](#4-asyncawait--fetch案例)
 ### 1. async/await的基本用法
 - async/await是ES7引入的新语法，可以更加方便的进行异步操作
 - async关键字用于函数上（async函数的返回值是Promise实例对象）
@@ -112,5 +113,72 @@ methods(){
 
 mounted(){
   this.queryData();
-},
+},    
+```
+
+### 4. async/await + fetch案例
+```js
+class HttpError extends Error {
+  constructor(response) {
+    super(`${response.status} for ${response.url}`);
+    this.name = 'HttpError';
+    this.response = response;
+  }
+}
+// 询问用户名，直到 github 返回一个合法的用户
+async function demoGithubUser() {
+  let name = prompt('Enter a name?', 'dengkui123');
+  const response = await fetch(`https://api.github.com/users/${name}`);
+  if (response.status == 200) {
+    const user = await response.json();
+    console.log(`Full name:${user.name}`);
+    return user;
+  } else {
+    throw new HttpError(response);
+  }
+}
+demoGithubUser().catch((err) => {
+  if (err instanceof HttpError && err.response.status == 404) {
+    alert("No such user, please reenter.");
+    return demoGithubUser();
+  } else {
+    throw err;
+  }
+});
+```
+**try/catch优化**
+```js
+class HttpError extends Error {
+  constructor(response) {
+    super(`${response.status} for ${response.url}`);
+    this.name = 'HttpError';
+    this.response = response;
+  }
+}
+
+async function demoGithubUser() {
+  let name = prompt('Enter a name?', 'dengkui123');
+  try {
+    const response = await fetch(`https://api.github.com/users/${name}`);
+    if(response.status == 200) {
+      const user = await response.json();
+      console.log(`Full name:${user.name}`);
+      return user;
+      //顺利结束
+    } else {
+      // 抛出错误
+      throw new HttpError(response);
+    }
+  } catch (err) {
+    if(err instanceof HttpError && err.response.status == 404) {
+      console.log('No such user, please reenter.');
+      // 再次执行demoGithubUser
+      demoGithubUser();
+    } else {
+      // 未知的 error，再次抛出（rethrow）
+      throw err;
+    }
+  }
+}
+demoGithubUser();
 ```

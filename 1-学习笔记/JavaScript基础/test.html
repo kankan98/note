@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // class HttpError extends Error {
+    //   constructor(response) {
+    //     super(`${response.status} for ${response.url}`);
+    //     this.name = 'HttpError';
+    //     this.response = response;
+    //   }
+    // }
+    // // 询问用户名，直到 github 返回一个合法的用户
+    // async function demoGithubUser() {
+    //   let name = prompt('Enter a name?', 'dengkui123');
+    //   const response = await fetch(`https://api.github.com/users/${name}`);
+    //   if (response.status == 200) {
+    //     const user = await response.json();
+    //     console.log(`Full name:${user.name}`);
+    //     return user;
+    //   } else {
+    //     throw new HttpError(response);
+    //   }
+    // }
+    // demoGithubUser().catch((err) => {
+    //   if (err instanceof HttpError && err.response.status == 404) {
+    //     alert("No such user, please reenter.");
+    //     return demoGithubUser();
+    //   } else {
+    //     throw err;
+    //   }
+    // });
+
+
+    class HttpError extends Error {
+      constructor(response) {
+        super(`${response.status} for ${response.url}`);
+        this.name = 'HttpError';
+        this.response = response;
+      }
+    }
+
+    async function demoGithubUser() {
+      let name = prompt('Enter a name?', 'dengkui123');
+      try {
+        const response = await fetch(`https://api.github.com/users/${name}`);
+        if(response.status == 200) {
+          const user = await response.json();
+          console.log(`Full name:${user.name}`);
+          return user;
+          //顺利结束
+        } else {
+          // 抛出错误
+          throw new HttpError(response);
+        }
+      } catch (err) {
+        if(err instanceof HttpError && err.response.status == 404) {
+          console.log('No such user, please reenter.');
+          // 再次执行demoGithubUser
+          demoGithubUser();
+        } else {
+          // 未知的 error，再次抛出（rethrow）
+          throw err;
+        }
+      }
+    }
+    demoGithubUser();
+  </script>
+</body>
+
+</html>
