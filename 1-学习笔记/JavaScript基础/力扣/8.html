@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<script>
+// 给定一个二叉树，检查它是否是镜像对称的。
+// 例如，二叉树 [1,2,2,3,4,4,3] 是对称的。
+//     1
+//    / \
+//   2   2
+//  / \ / \
+// 3  4 4  3
+// 但是下面这个 [1,2,2,null,3,null,3] 则不是镜像对称的:
+//     1
+//    / \
+//   2   2
+//    \   \
+//    3    3
+
+function binaryTree(arr) {
+  for(let i = 1; i < Math.ceil(Math.log2(arr.length)); i++) {
+    let temp1 = 2**i-1;
+    let temp2 = 2**(i+1)-2;  
+    for(let j = 0; j < i; j++) {
+      if(arr[temp1] !== arr[temp2]){
+        return false;
+      }
+    }
+  }
+  return true;
+}
+console.log(binaryTree([1,2,2,4,null,null,4]));
+</script>
+</body>
+</html>

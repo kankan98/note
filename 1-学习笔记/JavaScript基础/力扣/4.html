@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<script>
+// 给定一个排序数组，你需要在 原地 删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。
+// 不要使用额外的数组空间，你必须在 原地 修改输入数组 并在使用 O(1) 额外空间的条件下完成。
+function filter(arr){
+  if(arr.length === 0 ) return 0
+  let fast = 1;
+  let slow = 1;
+  while(fast < arr.length) {
+    if(arr[fast] !== arr[fast-1]) {
+      arr[slow] = arr[fast];
+      slow++;
+    }
+    fast++;
+  }
+  return slow;
+}
+console.log(filter([1,1,2,2,2,3,3,3,3,4,4,5]))
+    
+</script>
+</body>
+</html>

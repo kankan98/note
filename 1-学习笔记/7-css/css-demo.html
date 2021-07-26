@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" user-scalable="no">
+  <title>Document</title>
+  <style>
+    * {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      box-sizing:border-box;
+    }
+
+    .div {
+      background-color: pink;
+      width: 1000px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .div .before {
+      height: 50px;
+      width: 50px;
+      background-color: red;
+    }
+
+    .div content {
+      width: 200px;
+      height: 100px;
+      background: skyblue;
+      opacity: 0.5;
+      float: left;
+    }
+
+    .div .img {
+      height: 50px;
+      width: 50px;
+      clear: both;
+      background-color: #ee0;
+      z-index: 1;
+    }
+
+    .imggg .img1 {
+      height: 500px;
+      width: 300px;
+      position: absolute;
+      left: -300px;
+      transition: all 2s;
+      background-color: #ee0;
+    }
+
+    .imggg .img2 {
+      height: 500px;
+      width: 300px;
+      position: absolute;
+      left: 0;
+      transition: all 2s;
+      background-color: #ee0;
+    }
+
+    .imggg .img1:hover {
+      left: 0;
+    }
+
+    .imggg .img2:hover {
+      left: 300px;
+    }
+
+    .box {
+      margin: 0 auto;
+      width: 0;
+      height: 0;
+      border-top: 100px solid transparent;
+      border-right: 100px solid blue;
+      border-bottom: 100px solid transparent;
+      border-left: 100px solid transparent;
+    }
+
+    input[type='search']:focus {
+      outline: none;
+      border-color: red;
+    }
+
+    .transform {
+      width: 400px;
+      height: 200px;
+      background-color: #0f0;
+      margin: 100px auto;
+      box-shadow: 0;
+      transition: all 0.5s;
+    }
+
+    .transform:hover {
+      transform: translateY(-50%);
+      box-shadow: 1px 1px 3px gray;
+    }
+
+    .container {
+      margin: auto;
+      height: 500px;
+      width: 500px;
+      background-color: pink;
+      position: relative;
+    }
+
+    .center {
+      position: absolute;
+      height: 100px;
+      width: 100px;
+      top: 50%;
+      left: 50%;
+      background-color: #f00;
+      transform: translate(-50%, -50%);
+      transition: all 1s;
+    }
+
+    .center:hover {
+      transform: translate(-50%, -50%) rotate(180deg);
+      transform-origin: 50% 50%;
+      background-color: #0e0;
+    }
+
+    .rotate {
+      position: relative;
+      margin: auto;
+      width: 200px;
+      height: 200px;
+      background-color: #00e;
+
+    }
+
+    .rotate::after {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      content: '';
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: block;
+      background-color: #fff;
+      transform-origin: top;
+      transition: all 0.5s;
+
+    }
+
+    .rotate:hover::after {
+      transform: translate(-50%, -50%) rotate(180deg);
+    }
+
+    .scale {
+      margin: auto;
+      height: 100px;
+      width: 100px;
+      background-color: #0aa;
+      transition: all 0.5s;
+    }
+
+    .scale:hover {
+      transform: scale(2, 0.5);
+      transform-origin: center;
+    }
+
+    .scale-demo {
+      margin: auto;
+      height: 100px;
+      width: 600px;
+    }
+
+    .scale-demo ul {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .scale-demo ul li {
+      height: 50px;
+      width: 50px;
+      line-height: 50px;
+      text-align: center;
+      border: 1px solid #e9e;
+      border-radius: 50%;
+      transition: all .5s;
+    }
+
+    .scale-demo ul li:hover {
+      transform: scale(1.2);
+      cursor: pointer;
+    }
+
+    /* 定义动画 */
+    @keyframes move {
+      from {
+        transform: translate(0);
+        background-color: pink;
+      }
+
+      25% {
+        background-color: #0bb;
+        transform: translate(500px, 0);
+      }
+
+      50% {
+        transform: translate(500px, 500px);
+        background-color: #cc1;
+      }
+
+      75% {
+        transform: translate(0, 500px);
+        background-color: #f00;
+      }
+
+      to {
+        transform: translate(0, 0);
+        background-color: #0ff;
+      }
+    }
+
+    .animation {
+      display: block;
+      margin-bottom: 500px;
+      margin-left: calc(50% - 350px);
+      width: 200px;
+      height: 200px;
+      background-color: pink;
+      /* 调用动画 */
+      /* animation-name: move; */
+      /* 持续时间 */
+      /* animation-duration: 3s; */
+      /* 运动曲线 */
+      /* animation-timing-function:linear; */
+      /* 开始时间 */
+      /* animation-delay: 1s; */
+      /* 重复次数 */
+      /* animation-iteration-count: infinite; */
+      /* 运动方向 */
+      /* animation-direction: alternate; */
+      /* 动画最终状态（保持结束状态 ）*/
+      animation-fill-mode: forwards;
+      /* animation: 动画名称 持续时间 运动曲线 何时开始 播放次数 是否反向 动画最终状态 */
+      animation: move 3s ease-in-out 1s infinite alternate forwards;
+    }
+
+    .animation-demo {
+      margin: 100px auto;
+      width: 200px;
+      height: 200px;
+      background-color: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .animation-center {
+      height: 8px;
+      width: 8px;
+      background-color: #009dfd;
+      border-radius: 50%;
+    }
+
+    /* 动画demo */
+    div[class^=animation-pause] {
+      position: absolute;
+      top: 100px;
+      left: 100px;
+      transform: translate(-50%, -50%);
+      height: 8px;
+      width: 8px;
+      border-radius: 50%;
+      box-shadow: 0 0 12px #009dfd;
+      animation: pause 2.4s linear infinite;
+    }
+
+    .animation-demo .animation-pause2 {
+      animation-delay: 0.8s;
+    }
+
+    .animation-demo .animation-pause3 {
+      animation-delay: 1.6s;
+    }
+
+    @keyframes pause {
+      0% {}
+
+      70% {
+        height: 40px;
+        width: 40px;
+      }
+
+      100% {
+        height: 70px;
+        width: 70px;
+      }
+    }
+
+    .bear {
+      margin-bottom: 100px;
+      height: 210px;
+      width: 210px;
+      overflow: hidden;
+      position: relative;
+      animation: run 3s linear forwards;
+    }
+
+    .bear img {
+      height: 210px;
+      width: 1470px;
+      position: absolute;
+      left: 0px;
+      animation: walk 1s steps(6) infinite;
+    }
+
+    @keyframes walk {
+      0% {}
+
+      100% {
+        left: -1260px;
+      }
+    }
+
+    @keyframes run {
+      0% {
+        left: 0;
+      }
+
+      100% {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+
+    /* 3D透视 */
+    .container3d {
+      perspective: 500px;
+    }
+
+    .transform3d {
+      width: 200px;
+      height: 200px;
+      background-color: #0aa;
+      transform: translate3d(0, 0, 100px);
+      margin: 100px auto;
+    }
+
+    /* transform-style保留立体效果 */
+    .rotate3d {
+      perspective: 500px;
+    }
+
+    .demo3d {
+      margin: auto;
+      width: 200px;
+      height: 400px;
+      position: relative;
+      transition: all 2s;
+      transform-style: preserve-3d;
+    }
+
+    .demo3d:hover {
+      transform: rotateY(120deg);
+    }
+
+    .demo3d img {
+      position: absolute;
+      left: 0;
+      right: 0;
+    }
+
+    .demo3d img:first-child {
+      transform: rotateX(60deg);
+    }
+
+    .demo3d img:nth-child(2) {
+      transform: rotateX(120deg);
+    }
+
+    /* 正反面翻转 */
+    .rotate2 {
+      perspective: 500px;
+    }
+
+    .demo2 {
+      height: 200px;
+      width: 200px;
+      position: relative;
+      margin: auto;
+      transition: all 1s;
+      transform-style: preserve-3d;
+    }
+
+    .demo2:hover {
+      transform: rotateY(180deg);
+    }
+
+    .demo2 div {
+      width: 100px;
+      height: 100px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      text-align: center;
+      line-height: 100px;
+      font-size: 30px;
+      color: #fff;
+    }
+
+    .demo2 div:first-child {
+      background-color: #0b0;
+      transform: translate(-50%, -50%) rotateY(180deg);
+    }
+
+    .demo2 div:last-child {
+      background-color: #009dfd;
+    }
+
+    /* 立体旋转 */
+    .rotate3 {
+      perspective: 500px;
+      margin: 100px;
+    }
+
+    .demo3 {
+      height: 300px;
+      width: 200px;
+      margin: auto;
+      transform: translateZ(-100px);
+      position: relative;
+      transform-style: preserve-3d;
+      animation: rotate 3s linear infinite;
+    }
+
+    @keyframes rotate {
+      0% {
+        transform: translateZ(-100px) rotateY(0);
+      }
+
+      100% {
+        transform: translateZ(-100px) rotateY(360deg);
+      }
+    }
+
+    .demo3:hover {
+      animation-play-state: paused;
+    }
+
+    .demo3 img {
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    .demo3 img:first-child {
+      transform: translateX(-100px) rotateY(-90deg);
+    }
+
+    .demo3 img:nth-child(2) {
+      transform: translateZ(100px);
+    }
+
+    .demo3 img:nth-child(3) {
+      transform: translateZ(-100px) rotateY(180deg);
+    }
+
+    .demo3 img:nth-child(4) {
+      transform: translateX(100px) rotateY(90deg);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="div">float浮动
+    <div class="before"></div>
+    <content>1</content>
+    <content>2</content>
+    <content>3</content>
+    <div class="img">123</div>
+  </div>
+  <div class="box">三角形</div>
+  <form action="">
+    <label for="search">搜索</label>
+    <input type="search" id="search">
+
+    <label for="email">邮箱：</label>
+    <input type="email" id="email">
+    <label for="date">日期：</label>
+    <input type="date" id="date">
+    <label for="color">颜色：</label>
+    <input type="color" id="color">
+    <input type="submit" value="提交">
+  </form>
+  <!-- transition:过渡 -->
+  <div class="imggg"
+    style="overflow:hidden;height:500px;position:relative; width: 300px;display: flex;margin:0 auto;justify-content:center">
+    <div class="img1"></div>
+    <div class="img2"></div>
+  </div>
+  <!-- transform:转换 -->
+  <div class="transform">transform平移</div>
+  <div class="container">
+    <div class="center">旋转</div>
+  </div>
+  <div class="rotate"></div>
+  <div class="scale">缩放</div>
+  <div class="scale-demo">缩放
+    <ul>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+      <li>6</li>
+      <li>7</li>
+    </ul>
+  </div>
+  <!-- animation:动画 -->
+  <div class="animation">动画</div>
+  <div class="animation-demo">
+    <div class="animation-center"></div>
+    <div class="animation-pause1"></div>
+    <div class="animation-pause2"></div>
+    <div class="animation-pause3"></div>
+  </div>
+  <div class="bear">
+    <img src="./images/css/bear.png" alt="">
+  </div>
+  <!-- 3D转换 -->
+  <div class="container3d">
+    <div class="transform3d"></div>
+  </div>
+  <!-- demo1 -->
+  <div class="rotate3d">
+    <div class="demo3d">
+      <img src="./images/css/image1.jpeg" alt="" width="200px">
+      <img src="./images/css/image1.jpeg" alt="" width="200px">
+      <img src="./images/css/image1.jpeg" alt="" width="200px">
+    </div>
+  </div>
+  <!-- demo2 -->
+  <div class="rotate2">
+    <div class="demo2">
+      <div>背面</div>
+      <div>正面</div>
+    </div>
+  </div>
+  <!-- demo3 -->
+  <div class="rotate3">
+    <div class="demo3">
+      <img src="./images/css/image1.jpeg" alt="" width="200px">
+      <img src="./images/css/image1.jpeg" alt="" width="200px">
+      <img src="./images/css/image1.jpeg" alt="" width="200px">
+      <img src="./images/css/image1.jpeg" alt="" width="200px">
+    </div>
+  </div>
+  <!-- 搜索栏布局 -->
+  <div class="nav">
+    <div class="box1"></div>
+    <div class="box2"></div>
+    <div class="box3"></div>
+  </div>
+  <!-- rem用法 -->
+  <div class="rem">
+    <p>这是字体</p>
+  </div>
+
+  <!-- media媒体查询 -->
+  <div></div>
+  <style>
+    html{
+      font-size: 50px;
+    }
+    @media screen and (max-width:1200px) {
+      html {
+        font-size: 40px;
+      } 
+    } 
+    @media screen and (max-width: 1000px){
+      html {
+        font-size: 30px;
+      }
+    }
+    @media screen and (max-width: 800px){
+      html {
+        font-size: 20px;
+      }
+    }
+    @media screen and (max-width: 600px){
+      html {
+        font-size: 10px;
+      }
+    }
+    .nav {
+      min-width: 400px;
+      max-width: 800px;
+      height: 40px;
+      margin:auto;
+      position: relative;
+      overflow:hidden;
+    }
+
+    .nav .box1 {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 40px;
+      height: 100%;
+      background-color: pink;
+    }
+    .nav .box2 {
+      height: 20px;
+      margin: 0 40px;
+      margin-top:10px;
+      background-color: yellowgreen;
+    }
+    .nav .box3 {
+      position:absolute;
+      right:0;
+      top:0;
+      width:40px;
+      height: 100%;
+      background-color: skyblue;
+    }
+    .rem {
+      font-size: 12px;
+    }
+    .rem p {
+      /* width: 10em;
+      height: 10em; */
+      height: 5rem;
+      background-color: skyblue;
+      line-height: 5rem;
+      font-size:2rem;
+      text-align: center;
+      color: #fff;
+    }
+  </style>
+</body>
+
+</html>

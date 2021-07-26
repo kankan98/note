@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<script>
+// 编写一个程序，找到两个单链表相交的起始节点。
+
+function list(head1,head2) {
+  let a = {...head1};
+  let b = {...head2};
+  if(a === null) return null;
+  if(b === null) return null;
+  while(JSON.stringify(a) != JSON.stringify(b)) {
+    a = a === null ? head2 : a.next;
+    b = b === null ? head1 : b.next;
+  }
+  return a;
+}
+
+let l1 = {
+  value:1,
+  next:{
+    value:5,
+    next:{
+      value:10,
+      next:{
+        value:7,
+        next:null
+      }
+    }
+  }
+};
+let l2 = {
+  value:11,
+  next:{
+    value:15,
+    next:{
+      value:10,
+      next:{
+        value:7,
+        next:null
+      }
+    }
+  }
+};
+console.log(list(l1,l2));
+
+</script>
+</body>
+</html>

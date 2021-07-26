@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<script>
+//给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
+// 示例:
+// 输入: [-2,1,-3,4,-1,2,1,-5,4]
+// 输出: 6
+// 解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。
+
+function lss(list) {
+  let max = list[0];
+  for(let i = 1; i < list.length; i++) {
+    // 前面为正，则累加（当前值为负也累加，但肯定不是最大值了，为了后续累加），前面为负则加0，重新计数
+    list[i] = list[i] + Math.max(0, list[i-1])
+    // 累加到现在的当前位置最大值list[i]和最大值max比较
+    if (list[i] > max) max = list[i];
+  }
+  return max;
+}
+
+console.log(lss([1,-1,2,5,7,-10,-2,13,-6,2]))   
+</script>
+</body>
+</html>
