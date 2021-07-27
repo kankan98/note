@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<div class="div">
+    <button class="button">点击1</button>
+    <button class="button">点击2</button>
+</div>
+  <script>
+    // function func() {
+    //   document.querySelector('div').innerText = 'hello world';
+    // }
+    let div = document.getElementsByClassName("div");
+    let btn = document.getElementsByClassName("button");
+    let p = document.createElement('p');
+    p.innerText = 'hello world';
+    div[0].onclick = function(event) {
+      console.log(event.target.innerText);
+      document.querySelector('div').appendChild(p);
+    }
+  </script>
+</body>
+</html>
