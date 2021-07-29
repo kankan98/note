@@ -7,22 +7,32 @@
   <title>Document</title>
 </head>
 <body>
-<div class="div">
-    <button class="button">点击1</button>
-    <button class="button">点击2</button>
-</div>
-  <script>
-    // function func() {
-    //   document.querySelector('div').innerText = 'hello world';
-    // }
-    let div = document.getElementsByClassName("div");
-    let btn = document.getElementsByClassName("button");
-    let p = document.createElement('p');
-    p.innerText = 'hello world';
-    div[0].onclick = function(event) {
-      console.log(event.target.innerText);
-      document.querySelector('div').appendChild(p);
-    }
-  </script>
+<script>
+const map = [0,'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+function getDecodes(num) {
+    if (!num) return []
+    num += ''
+    const result = []
+    _getDecodes(num, 0, [], result)
+    return result
+}
+
+function _getDecodes(num, start, path, result) {
+    if (start == num.length) return result.push([...path])
+    let c = num[start++]
+    path.push(map[c])
+    _getDecodes(num, start, path, result)
+    path.pop()
+    
+    if (start == num.length) return
+    c += num[start]
+
+    if (c > 26) return
+    path.push(map[c])
+    _getDecodes(num, start + 1, path, result)
+    path.pop()
+}
+console.log(getDecodes(1212));
+</script>
 </body>
 </html>
