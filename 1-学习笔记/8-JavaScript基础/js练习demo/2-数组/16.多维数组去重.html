@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>reduce、concat、Set</title>
+</head>
+
+<body>
+    <script>
+        let arr = [[1,2],[3,4],[4,6,[4,8]]];
+        function newArr(arr){
+            return arr.reduce((pre,cur) => pre.concat(Array.isArray(cur)?newArr(cur):cur),[])
+        }
+        function uniqueArr(arr){
+            return [...new Set(newArr(arr))];
+        }
+        let name = uniqueArr(arr);
+        console.log(name);
+        // function flat(arr, target) {
+        //     arr.forEach(item => {
+        //         if (Array.isArray(item)) {
+        //             flat(item, target)
+        //         } else {
+        //             target.push(item)
+        //         }
+        //     })
+        // } 
+
+        // function flatArr(arr) {
+        //     let result = []
+
+        //     flat(arr, result)
+        //     return result
+        // }
+
+        // function uniqueArr(arr) {
+        //     return [...new Set(flatArr(arr))]
+        // }
+
+        // const result = uniqueArr([1, 2, 3, 4, [3, 4, [4, 6]]])
+
+        // console.log(result) // 1,2,3,4,6
+    </script>
+</body>
+
+</html>

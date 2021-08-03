@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let map = new Map();
+
+        map.set('1', 'str1');   // 字符串键
+        map.set(1, 'num1');     // 数字键
+        map.set(true, 'bool1'); // 布尔值键
+        map.set('true', 'str2');
+        // 还记得普通的 Object 吗? 它会将键转化为字符串
+        // Map 则会保留键的类型，所以下面这两个结果不同：
+        console.log(map.get(1)); // 'num1'
+        console.log(map.get('1')); // 'str1'
+        console.log(map.get(true));
+        console.log(map.get('true'));
+        // alert(map.size); // 3
+        for (let item of map.keys()) {
+            console.log(item);
+
+        }
+        for (let item of map.values()) {
+            console.log(item);
+
+        }
+        for (let item of map.entries()) {
+            console.log(item);
+
+        }
+        console.log(map);
+
+        //Object.Entries方法和Object.fromEntries方法：Map对象和普通对象的的相互转换
+        let obj = {
+            name: "John",
+            age: 30
+        };
+        let map = new Map(Object.entries(obj));
+
+        let prices = Object.fromEntries([
+            ['banana', 1],
+            ['orange', 2],
+            ['meat', 4]
+        ]);
+    </script>
+</body>
+
+</html>

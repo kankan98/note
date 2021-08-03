@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>对象拷贝</title>
+</head>
+
+<body>
+    <script>
+        //practice1
+        // let user = new Object();
+        // user.name = "John";
+        // user.surname = "Smith";
+        // user.name = "Pete";
+        // delete user.name;
+
+        //practice2
+        // let testObj = {};
+        // alert(isEmpty(testObj));
+        // testObj.age = 18;
+        // testObj["name"] = "dengkui";
+        // alert(isEmpty(testObj));
+        // console.log(testObj);
+        // function isEmpty(obj) {
+        //     for (let key in obj) {
+        //         return false;
+        //     }
+        //     return true;
+        // }
+
+        //practice3
+        // let salaries = {
+        //     John:100,
+        //     Ann:160,
+        //     Pete:130
+        // };
+        // let sum = 0;
+        // for(let key in salaries) {
+        //     sum += salaries[key];
+        // }
+        // console.log(sum);
+
+        //practice4
+        // let menu = {
+        //     width:200,
+        //     height:300,
+        //     title:"My menu"
+        // };
+
+        // multiplyNumeric(menu);
+
+        // function multiplyNumeric(obj){
+        //     for(let key in obj){
+        //         console.log(typeof obj[key])
+        //         if(typeof(obj[key]) == "number"){
+        //             obj[key] = obj[key]*2;
+        //         }
+
+        //     }
+        // }
+        // console.log(menu);
+
+
+        //纯对象时候的深拷贝
+        // let user = {
+        //     name: "John",
+        //     sizes: {
+        //         height: 182,
+        //         width: 50,
+        //         length: {
+        //             head: 20,
+        //             body: 30,
+        //             foot: 40
+        //         }
+        //     }
+        // };
+        // let clone = deepClone(user);
+        // function deepClone(obj) {
+        //     let cloneObj = {};
+        //     for (let key in obj) {
+
+        //         if (typeof (obj[key]) == 'object') {
+        //             cloneObj[key] = deepClone(obj[key]);
+        //         } else {
+        //             cloneObj[key] = obj[key];
+        //         }
+        //     }
+        //     return cloneObj;
+        // }
+        // clone.sizes.height = 174;
+        // console.log(clone.sizes.height === user.sizes.height);
+        // clone.sizes.length.head = 100;
+        // console.log(user);
+        // console.log(clone);
+
+        let array = ["name",
+            "age",
+            {
+                name: "John",
+                age: 23,
+                hobby: ["basketball",
+                    "soccer",
+                    "tennis",
+                    {
+                        swimming: "today",
+                        exercise: "tomorrow",
+                        play: [1, 2, 3, 4, 5]
+                    }
+                ],
+                home: "shaoyang"
+            }
+        ];
+        
+        let newArray = deepCloneArray(array);
+
+        newArray[2].name = 'dengkui';
+        newArray[2].hobby[3].swimming = "friday";
+        console.log(newArray[2].hobby[3].swimming === array[2].hobby[3].swimming);
+        console.log(array);
+        console.log(newArray);
+
+        function deepCloneObj(obj) {
+            let cloneObj = {};
+            for (let key in obj) {
+                // console.log(typeof (obj[key]));
+                // console.log(obj[key]);
+                if (Object.prototype.toString.call(obj[key]).replace(/\[object\s|\]/g, '') == 'Object') {           //!Array.isArray(obj[key])
+                    cloneObj[key] = deepCloneObj(obj[key]);
+                } else if (Object.prototype.toString.call(obj[key]).replace(/\[object\s|\]/g, '') == 'Array') {     //或者Array.isArray(obj[key])
+                    cloneObj[key] = deepCloneArray(obj[key]);
+
+                } else {
+                    cloneObj[key] = obj[key];
+
+                }
+            }
+            return cloneObj;
+        }
+        function deepCloneArray(obj) {
+            let cloneObj = [];
+            for (let key in obj) {
+                // console.log(typeof (obj[key]));
+                // console.log(obj[key]);
+                if (Object.prototype.toString.call(obj[key]).replace(/\[object\s|\]/g, '') == 'Object') {
+                    cloneObj[key] = deepCloneObj(obj[key]);
+                } else if (Object.prototype.toString.call(obj[key]).replace(/\[object\s|\]/g, '') == 'Array') {
+                    cloneObj[key] = deepCloneArray(obj[key]);
+
+                } else {
+                    cloneObj[key] = obj[key];
+
+                }
+            }
+            return cloneObj;
+        }
+        
+
+    </script>
+</body>
+
+</html>

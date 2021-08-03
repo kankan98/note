@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>随机数</title>
+</head>
+<body>
+   <script>
+       function random(min,max){
+           let res = Math.floor(Math.random()*(max+1-min))+min;
+           return res;
+       }
+       console.log(random(1,10));
+
+       function random2(min,max){
+           let res = Math.random()*(max-min+1)+min-0.5;     //最小值=min-0.5 最大值=max+0.5
+           return res;
+       }
+   </script> 
+</body>
+</html>

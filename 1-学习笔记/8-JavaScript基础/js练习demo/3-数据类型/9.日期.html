@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //1.
+        // let date = new Date(2020,1,25);
+        // console.log(getWeekDay(date));
+
+        // function getWeekDay(date){
+        //     let days = ['MO','TU','WE','TH','FR','SA','SU'];
+        //     return days[date.getDay()]; 
+        // }
+
+        //2.
+        // let date = new Date(2021,3,25);
+        // function getLocalDay(date){
+        //     let day = date.getDay();
+        //     if(day == 0){
+        //         day = 7;
+        //     }
+        //     return day;
+        // }
+        // console.log(getLocalDay(date));
+
+        //3.
+        // function getDateAgo(date,days){
+        //     let dateCopy = new Date(date);
+        //     dateCopy.setDate(date.getDate() - days);
+        //     return dateCopy;
+        // }
+
+        // let date = new Date(2021,3,26);
+        // console.log(getDateAgo(date,1));
+        // console.log(getDateAgo(date,365));
+
+        //4.
+        // function getLastDayOfMonth(year,month){
+        //     let date = new Date(year,month+1,0);
+        //         return date.getDate();
+        // }
+        // console.log(getLastDayOfMonth(2020,1));
+        // console.log(getLastDayOfMonth(2021,1));
+        // console.log(getLastDayOfMonth(2021,2));
+
+        //5.
+        function getSecendsToday(){
+            let d = new Date();
+            return d.getHours()*3600 + d.getMinutes()*60 + d.getSeconds();
+        }
+
+        // function getSecendsToday(){
+        //     let now = new Date();
+        //     let today = new Date(now.getFullYear(),now.getMonth(),now.getDate());
+        //     let diff = now - today;
+        //     return Math.round(diff/1000);
+        // }
+        console.log(getSecendsToday());
+        console.log(new Date(new Date - 3600000));
+    </script>
+</body>
+</html>

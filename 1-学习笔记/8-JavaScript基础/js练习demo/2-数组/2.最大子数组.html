@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        arr = [-4,5,2,-3,100];
+        console.log(getMaxSubSumSlow(arr));
+        console.log(getMaxSubSumFast(arr));
+        
+        // 嵌套循环，时间复杂度O(n2)
+        function getMaxSubSumSlow(arr){
+            let sum = 0;
+            for(let i = 0 ; i < arr.length;i++){
+                let sumFixedStart = 0;
+                {
+                    for(let j = i;j < arr.length;j++){
+                        sumFixedStart += arr[j];
+                        sum = Math.max(sum,sumFixedStart);
+                    }
+                }
+            }return sum;
+        }
+
+        //时间复杂度O(n)
+        function getMaxSubSumFast(arr){
+            let maxSum = 0;
+            let partialSum = 0;
+            for(let item of arr){
+                partialSum += item;
+                maxSum = Math.max(maxSum,partialSum);
+                if(partialSum < 0){
+                    partialSum = 0;
+                }
+            }
+            return maxSum;
+        }
+    </script>
+</body>
+</html>

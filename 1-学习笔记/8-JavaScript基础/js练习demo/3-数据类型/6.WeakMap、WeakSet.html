@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //1
+        let message = [
+            { text: "Hello", from: "John" },
+            { text: "how goes?", from: "John" },
+            { text: "See you soon", from: "Alice" }
+        ];
+        let readMessage = new WeakSet();
+        readMessage.add(message[0]);
+        readMessage.add(message[1]);
+
+        readMessage.add(message[0]);
+        console.log("Read message 0: " + readMessage.has(message[0]));
+        message.shift();
+
+        //2
+        let messages = [
+            { text: "Hello", from: "John" },
+            { text: "How goes?", from: "John" },
+            { text: "See you soon", from: "Alice" }
+        ];
+
+        let readMap = new WeakMap();
+
+        readMap.set(messages[0], new Date());
+        console.log(readMap);
+    </script>
+</body>
+
+</html>

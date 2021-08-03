@@ -1,38 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
+
 <body>
-<script>
-const map = [0,'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
-function getDecodes(num) {
-    if (!num) return []
-    num += ''
-    const result = []
-    _getDecodes(num, 0, [], result)
-    return result
-}
+  <div class="div">
+    x<img >
+  </div>
 
-function _getDecodes(num, start, path, result) {
-    if (start == num.length) return result.push([...path])
-    let c = num[start++]
-    path.push(map[c])
-    _getDecodes(num, start, path, result)
-    path.pop()
-    
-    if (start == num.length) return
-    c += num[start]
-
-    if (c > 26) return
-    path.push(map[c])
-    _getDecodes(num, start + 1, path, result)
-    path.pop()
-}
-console.log(getDecodes(1212));
-</script>
 </body>
+<style>
+  .div {
+    border: 1px solid red;
+    font-size: 30px;
+    line-height: 30px;
+  }
+img{
+  height: 200px;
+  width: 400px;
+  background-color: pink;
+  display: block;
+  /* line-height: 30px; */
+}
+</style>
+<script>
+  // let input = document.querySelector('#inp');
+  // function debounce(fn) {
+  //   let time = null;
+  //   let i = 0;
+  //   return function() {
+  //     clearTimeout(time);
+  //     time = setTimeout(()=>{
+  //       i++;
+  //       fn.apply(this,[i]);
+  //     },500)
+  //   }
+  // }
+  // function sayHi(i) {
+  //   console.log(`防抖成功${i}`);
+  // }
+  // input.addEventListener('input',debounce(sayHi));
+
+
+  // function debounce(fn,delay,name,age) {
+  //   let timeout = null; // 创建一个标记用来存放定时器的返回值
+  //   return function (...args) {
+  //     clearTimeout(timeout); // 每当用户输入的时候把前一个 setTimeout clear 掉
+  //     timeout = setTimeout(() => { // 然后又创建一个新的 setTimeout, 这样就能保证输入字符后的 interval 间隔内如果还有字符输入的话，就不会执行 fn 函数
+  //       fn.apply(this,args);
+  //     }, delay);
+  //   };
+  // }
+  // function sayHi() {
+  //   console.log('防抖成功');
+  // }
+
+
+  // var inp = document.getElementById('inp');
+  // inp.addEventListener('input', debounce(sayHi,500)); // 防抖
+  // inp.oninput = debounce(sayHi,1000);
+  // function throttle(fn, delay) {
+  //   let wait = false;
+  //   return function () {
+  //     if (wait) return;
+  //     wait = true;
+  //     setTimeout(() => {
+  //       fn.apply(this, arguments);
+  //       wait = false;
+  //     }, delay)
+  //   }
+  // }
+  // function loading() {
+  //   let scrollTop = document.documentElement.scrollTop;   //内容顶部到视口顶部的距离(屏幕以上a)
+  //   let offsetTop = document.getElementById('div1').offsetTop; //元素顶部到内容顶部的距离（最大高度a+b）
+  //   let clientHeight = document.documentElement.clientHeight;   //视口的高度(屏幕高度b)
+  //   // console.log(scrollTop,offsetTop,clientHeight);
+  //   if (scrollTop + clientHeight + 300 > offsetTop) {
+  //     console.log('节流成功');
+  //   }
+  // }
+  // window.addEventListener('scroll', throttle(loading, 1000))
+  // window.addEventListener('resize', throttle(loading, 1000))
+
+
+
+</script>
+
 </html>

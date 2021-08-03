@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function toSalary(salaries) {
+            let maxSalary = 0;
+            let name = null;
+            for (let salary of Object.values(salaries)) {
+                if (salary > maxSalary) {
+                    maxSalary = salary;
+                }
+            }
+            for (let i = 0; i < Object.keys(salaries).length; i++) {
+                if (Object.values(salaries)[i] == maxSalary){
+                   return Object.keys(salaries)[i];
+                }
+            }
+
+
+        }
+
+        let salaries = {
+            "John": 100,
+            "Pete": 300,
+            "Mary": 250
+        }
+
+        console.log(toSalary(salaries));
+    </script>
+</body>
+
+</html>

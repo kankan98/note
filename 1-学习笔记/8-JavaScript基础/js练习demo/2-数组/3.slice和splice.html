@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //字符串slice
+        let str = "abcdefg";
+        newStr = str.slice(0,4);
+        console.log(newStr);    //"abcd"
+        console.log(str);       //"abcdefg"
+        
+
+        let arr = ["a","b","c"];
+        newArr = arr.splice(1,1,"d");
+        console.log(newArr);    //["b"]
+        console.log(arr);       //["a","d",c"]
+        //数组slice
+        console.log(arr.slice(1,2));    //["d"]
+        console.log(arr);               //["a","d","c"]
+    </script>
+</body>
+</html>

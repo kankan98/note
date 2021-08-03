@@ -38,6 +38,7 @@ export default {
   name: 'app',
   data () {
     return {
+      timer: null
     }
   },
   computed: {
@@ -50,12 +51,16 @@ export default {
   methods: {
     // 监听文本框内容发生变化
     handleInputValue(e) {
-      console.log(e.target.value);
-      this.$store.commit('setInputValue', e.target.value);
+      clearTimeout(this.timer);
+      this.timer = setTimeout(() => {
+        this.$store.commit('setInputValue', e.target.value);
+        console.log(123);
+      },300);
     },
     // 向列表中新增 item 项
     addItemToList() {
       if (this.inputValue.trim().length <= 0) {
+        
         return this.$message.warning('文本框内容不能为空！')
       }
       this.$store.commit('addItem');

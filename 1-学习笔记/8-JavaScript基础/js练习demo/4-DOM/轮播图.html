@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <style>
+        .arrow {
+            padding: 0;
+            background: #ddd;
+            border-radius: 15px;
+            border: 1px solid gray;
+            font-size: 24px;
+            line-height: 24px;
+            color: #444;
+            display: block;
+            position: absolute;
+            top: 60px;
+        }
+
+        .prev {
+            left: 7px;
+            
+        }
+
+        .next {
+            right: 7px;
+        }
+
+        .arrow:focus {
+            outline: none;
+        }
+
+        .arrow:hover {
+            background: #ccc;
+            cursor: pointer;
+        }
+
+        .gallery ul {
+            height: 130px;
+            width: 9999px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            font-size: 0;
+            transition:margin-left 250ms;
+            /* margin-left:-390px; */
+            /* border:1px soild red;   */
+        }
+
+        .gallery ul img {
+            width: 130px;
+            height: 130px;
+            display: block;
+            /* removes extra space near images */
+
+        }
+
+        .gallery li {
+            display: inline-block;
+            /* removes extra space between list items*/
+        }
+
+        .carousel {
+            width: 398px;
+            position: relative;
+            padding: 10px 40px;
+            border: 1px solid #ccc;
+            border-radius: 15px;
+            background-color: #eee;
+        }
+        .gallery{
+            width:390px;
+            overflow: hidden;
+            z-index:-1;
+
+        }
+        .dot{
+            margin:0;
+            padding:0;
+            /* position:relative; */
+            font-size:0px;
+            text-align: center;
+            
+        }
+        .dot li{
+            margin:5px;
+            display:inline-block;
+            width:10px;
+            height:10px;
+            border-radius: 50%;
+            background-color:gray;
+
+            
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="carousel" class="carousel">
+        <button class="arrow prev">⇦</button>
+        <div id="gallery" class="gallery">
+            <ul class="image">
+                <li><img src="https://en.js.cx/carousel/1.png"><span>1</span></li>
+                <li><img src="https://en.js.cx/carousel/2.png"><span>2</span></li>
+                <li><img src="https://en.js.cx/carousel/3.png"><span>3</span></li>
+                <li><img src="https://en.js.cx/carousel/4.png"><span>4</span></li>
+                <li><img src="https://en.js.cx/carousel/5.png"><span>5</span></li>
+                <li><img src="https://en.js.cx/carousel/6.png"></li>
+                <li><img src="https://en.js.cx/carousel/7.png"></li>
+                <li><img src="https://en.js.cx/carousel/8.png"></li>
+                <li><img src="https://en.js.cx/carousel/9.png"></li>
+                <li><img src="https://en.js.cx/carousel/10.png"></li>
+            </ul>
+        </div>
+        <ul  id="dot" class="dot">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <button class="arrow next">⇨</button>
+    </div>
+
+
+    <script>
+        let i = 1;
+        for(let li of gallery.querySelectorAll('li')){
+            li.style.position = 'relative';
+            li.insertAdjacentHTML('beforeend',`<span style="position:absolute;left:0;top:0">${i}</span>`);
+            i++;
+        }
+        let width = 130;
+        let count = 3;
+        let list = gallery.querySelector('ul');
+        let listElems = gallery.querySelectorAll('li');
+        let position = 0;
+
+        carousel.querySelector('.prev').onclick = function(){
+            position += width * count;
+            position = Math.min(position,0);
+            list.style.marginLeft = position + "px";
+        }
+        carousel.querySelector('.next').onclick = function(){
+            position -= width * count;
+            position = Math.max(position,-width*(listElems.length-count));
+            list.style.marginLeft = position + "px";
+       }
+       dot.onclick = function(e){
+           let lis = dot.querySelectorAll('li');
+           if(e.target.tagName.toLowerCase() == 'li'){
+            let count = Array.from(lis).indexOf(e.target);
+            position = -count*width;
+            list.style.marginLeft = position + "px";
+           }
+          
+       }
+    </script>
+</body>
+
+</html>
