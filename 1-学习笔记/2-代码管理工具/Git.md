@@ -40,7 +40,7 @@ Git相比svn在回退的时候优势更明显，因为commit的成本小并且�
 在Git中每次提交都会生成一个节点,而每个节点都会有一个哈希值作为唯一标示，多次提交会形成一个线性节点链（不考虑merge的情况），如图1-1
 
 <p align="center">
-  <img src="../images/git/1-1.image" width = "800" alt="图片名称" align=center />
+  <img src="../0-images/git/1-1.image" width = "800" alt="图片名称" align=center />
  </p>
 <p align="center">图1-1</p>
 节点上方是通过 SHA1计算的哈希值
@@ -69,7 +69,7 @@ HEAD是Git中非常重要的一个概念，你可以称它为指针或者引用�
 面对上面的问题通过引入分支概念便可优雅的解决，如图2-1
 
 <p align="center">
-  <img src="../images/git/2-1.image" width = "800" alt="图片名称" align=center />
+  <img src="../0-images/git/2-1.image" width = "800" alt="图片名称" align=center />
  </p>
 <p align="center">图2-1</p>
 
@@ -145,14 +145,14 @@ git merge 分支名/节点哈希值
 如果需要合并的分支完全领先于当前分支，如图3-1所示
 
 <p align="center">
-  <img src="../images/git/3-1.image" width = "800" alt="图片名称" align=center />
+  <img src="../0-images/git/3-1.image" width = "800" alt="图片名称" align=center />
  </p>
 <p align='center'>图3-1</p>
 
 由于分支 ft-1 完全领先分支 ft-2 即 ft-1 完全包含 ft-2，所以 ft-2 执行了 “git merge ft-1” 后会触发 fast forward(快速合并)，此时两个分支指向同一节点，这是最理想的状态。但是实际开发中我们往往碰到是是下面这种情况：如图3-2(左)
 
 <p align="center">
-  <img src="../images/git/3-2.image" width = "800" alt="图片名称" align=center />
+  <img src="../0-images/git/3-2.image" width = "800" alt="图片名称" align=center />
  </p>
 <p align="center">图3-2</p>
 这种情况就不能直接合了，当 ft-2 执行了 “git merge ft-1” 后 Git 会将节点 C3 、 C4 合并随后生成一个新节点 C5 ，最后将 ft-2 指向 C5。如图3-2(右)
@@ -169,7 +169,7 @@ git rebase 分支名/节点哈希值
 与 merge 不同的是 rebase 合并看起来不会产生新的节点(实际上是会产生的，只是做了一次复制)，而是将需要合并的节点直接累加 如图3-3
 
 <p align="center">
-  <img src="../images/git/3-3.image" width = "800" alt="图片名称" align=center />
+  <img src="../0-images/git/3-3.image" width = "800" alt="图片名称" align=center />
  </p>
 <p align="center">图3-3</p>
 
@@ -194,7 +194,7 @@ git cherry-pick 节点哈希值
 ```
 
 <p align="center">
-  <img src="../images/git/3-4.image" width = "800" alt="图片名称" align=center />
+  <img src="../0-images/git/3-4.image" width = "800" alt="图片名称" align=center />
  </p>
 <p align="center">图3-4</p>
 假设当前分支是 master，执行了 git cherry-pick C3(哈希值)，C4 （哈希值）命令后会直接将 C3、C4 节点抓过来放在后面，对应 C3' 和 C4'
@@ -256,7 +256,7 @@ git clone 仓库地址
 前面的章节我也有提到过，**clone**不仅仅是复制代码，它还会把远程仓库的 引用(分支/HEAD) 一并取下保存在本地，如图3-5所示：
 
 <p align="center">
-  <img src="../images/git/3-5.image" width = "800" alt="图片名称" align=center />
+  <img src="../0-images/git/3-5.image" width = "800" alt="图片名称" align=center />
  </p>
 <p align="center">图3-5</p>
 

@@ -2,13 +2,18 @@
 
 ## JavaScript
 - [JavaScript](#javascript)
-  - [1.实现sum(1)(2)(3)](#1实现sum123)
-  - [2. 深拷贝](#2-深拷贝)
-  - [3.去重](#3去重)
-  - [4. new操作中发生了什么？](#4-new操作中发生了什么)
-  - [5. 快速排序](#5-快速排序)
+  - [1、实现sum(1)(2)(3)](#1实现sum123)
+  - [2、深拷贝](#2深拷贝)
+  - [3、去重](#3去重)
+  - [4、new操作中发生了什么？](#4new操作中发生了什么)
+  - [5、快速排序](#5快速排序)
+  - [6、四种设计模式](#6四种设计模式)
+  - [7、创建实例的方法](#7创建实例的方法)
+  - [8、前端事件流](#8前端事件流)
+  - [9、原型关系](#9原型关系)
+  - [10、原型 / 构造函数 / 实例](#10原型--构造函数--实例)
   
-### 1.实现sum(1)(2)(3)
+### 1、实现sum(1)(2)(3)
 ```js
 function sum(x) {
   let num = x;
@@ -30,15 +35,16 @@ console.log(sum(1)(2)(3));  // 6
 
 >但是在计算完成后还是返回了 tmp 这个函数，这样就获取不到计算的结果了，我们需要的结果是一个计算的数字那么怎么办呢，首先要知道 JavaScript 中，打印和相加计算，会分别调用 toString 或 valueOf 函数，所以我们重写 tmp 的 toString 和 valueOf 方法，返回 num 的值；
 
-- 实现`sum(1)(2)(3)()`
+**实现sum(1)(2)(3)()**
 ```js
-
 const sum = a => b => b ? sum( a + b ) : a;
 console.log(sum(1)(2)(3)());
 ```
 
-### 2. 深拷贝
+### 2、深拷贝
 如果在拷贝这个对象的时候，**只对基本数据类型进行了拷贝，而对引用数据类型只是进行了引用的传递**，而没有重新创建一个新的对象，则认为是**浅拷贝**。反之，在对引用数据类型进行拷贝的时候，**创建了一个新的对象**，并且复制其内的成员变量，则认为是**深拷贝**。
+
+**1. 手写深拷贝**
 ```js
 // 深拷贝
 function cloneDeep(target) {
@@ -59,23 +65,44 @@ function cloneDeep(target) {
   }
 }
 ```
-
-其他方法：
+**2. lodash里的_.cloneDeep方法**
 ```js
 // lodash里的_.cloneDeep方法
-let objects = [{ 'a': 1 }, { 'b': 2 }];
+let obj = {name:[{firstname:'kui'},{lastName:'deng'}]}
  
-var deep = _.cloneDeep(objects);
-console.log(deep[0] === objects[0]);
+let cloneObj = _.cloneDeep(obj);
+console.log(cloneObj === obj);
 // => false
 ```
+**3. ···扩展运算符**
+```js
+let obj = {name:[{firstname:'kui'},{lastName:'deng'}]}
 
+let cloneObj = {...obj};
+```
+
+
+**4. JSON.parse(JSON.stringify(obj))**
 ```js
 // JSON.parse(JSON.stringify(obj))
-let objects = [{ 'a': 1 }, { 'b': 2 }];
-let deep = JSON.parse(JSON.stringify(objects));
+let obj = {name:[{firstname:'kui'},{lastName:'deng'}]}
+let cloneObj = JSON.parse(JSON.stringify(obj));
 ```
-### 3.去重
+
+**5. Object.assign方法**
+```js
+// Object.assign方法
+let obj = {name:[{firstname:'kui'},{lastName:'deng'}]}
+let cloneObj = Object.assign({}, obj);
+```
+
+**6. Object.getOwnPropertyDescriptors方法**
+```js
+// Object.getOwnPropertyDescriptors方法
+let obj = {name:[{firstname:'kui'},{lastName:'deng'}]}
+let cloneObj = Object.defineProperties({}, Object.getOwnPropertyDescriptors(obj));
+```
+### 3、去重
 ```js
 // 方式1：Set去重
 function unique(arr) {
@@ -99,7 +126,7 @@ function unique(arr) {
 }
 
 ```
-### 4. new操作中发生了什么？
+### 4、new操作中发生了什么？
 > 原文链接：https://www.cnblogs.com/echolun/p/10903290.html
 > https://www.cnblogs.com/echolun/p/10110839.html
 - new一个实例
@@ -167,7 +194,7 @@ console.log(child.hasOwnProperty('age'));
 console.log(child.hasOwnProperty('sayHi'));
 ```
 
-### 5. 快速排序
+### 5、快速排序
 ```js
 const quickSort = (array) => {
   const sort = (arr, left = 0, right = arr.length - 1) => {
@@ -196,4 +223,127 @@ const quickSort = (array) => {
   return newArr
 }
 console.log(quickSort([7,1,5,2,4,6,3]))
+```
+
+### 6、四种设计模式
+**1. 工厂模式**：简单的工厂模式可以理解为解决多个相似的问题;
+> 函数内部生成对象返回、类
+
+**2. 单例模式**：只能被实例化（构造函数给实例添加属性与方法）一次
+> 设置阀门，让构造函数只能实例化一次
+```js
+// 单例模式
+let Singleton = function(name){
+    this.name = name;
+};
+Singleton.prototype.getName = function(){
+    return this.name;
+}
+// 获取实例对象
+let getInstance = (function() {
+    let instance = null;
+    return function(name) {
+        if(!instance) {//相当于一个一次性阀门,只能实例化一次
+            instance = new Singleton(name);
+        }
+        return instance;
+    }
+})();
+// 测试单体模式的实例,所以a===b
+let a = getInstance("aa");
+let b = getInstance("bb");  
+```
+
+**3. 沙箱模式**
+> 将一些函数放到自执行函数里面,但要用闭包暴露接口,用变量接收暴露的接口,再调用里面的值,否则无法使用里面的值
+```js
+let sandboxModel=(function() {
+    function sayName(name) {
+      console.log('123',name)
+    };
+    function sayAge() {
+      console.log('18')
+    };
+    return {
+        sayName,
+        sayAge
+    }
+})()
+
+sandboxModel.sayName('dk');
+sandboxModel.sayAge();
+```
+4. 发布者订阅模式
+> 就例如我们关注了某一个公众号,然后他对应的有新的消息就会给你推送
+
+### 7、创建实例的方法
+1. 字面量
+```js
+let obj = {'name':'kk'}
+```
+2. Object构造函数
+```js
+let Obj = new Object()
+Obj.name='kk'
+```
+3. 工厂模式
+```js
+function createPerson(name){
+ let obj = new Object();
+ obj.name = name;
+ };
+ return obj; 
+}
+let user = createPerson('kk');
+```
+
+4. 构造函数创建对象
+```js
+function Person(name) {
+  this.name = name
+}
+
+let user = new Person('kk');
+```
+
+### 8、前端事件流
+**事件流**：事件流描述的是从页面中接收事件的顺序,DOM2级事件流包括下面几个阶段。
+
+- 事件捕获阶段
+- 处于目标阶段
+- 事件冒泡阶段
+
+**addEventListener**：addEventListener是 DOM2 级事件新增的指定事件处理程序的操作。
+- 这个方法接收3个参数：**要处理的事件名、作为事件处理程序的函数 和 一个布尔值**。最后这个布尔值参数如果是`true`，表示在**捕获阶段**调用事件处理程序；如果是`false`，表示在**冒泡阶段**调用事件处理程序。默认为`false`。
+
+### 9、原型关系
+<p align="center">
+  <img src="../0-images/js/原型结构图.png" width = "75%" alt="原型继承" align=center />
+</p>
+
+### 10、原型 / 构造函数 / 实例
+
+- **原型(prototype)**: 一个简单的对象，用于实现对象的 属性继承。可以简单的理解成对象的爹。在 `Firefox` 和 `Chrome` 中，每个 `JavaScript` 对象中都包含一个 `__proto__` (非标准)的属性指向它爹(该对象的原型)，可 `obj.__proto__` 进行访问。
+- **构造函数**: 可以通过 `new` 来新建一个对象的函数。
+- **实例**: 通过构造函数和new创建出来的对象，便是实例。实例通过 `__proto__` 指向原型，通过 `constructor` 指向构造函数。
+
+```js
+// 构造函数
+function Person(name) {
+this.name = name;
+}
+// 创建实例
+let user = new Person('kk');
+console.log(user);    // Person {name: "kk"}
+
+console.log(user.__proto__ === Person.prototype)    //true
+console.log(Person.prototype.constructor === Person)    // true
+// 基于上面两条
+// user.__proto__.constructor === Person.prototype.constructor  === Person
+console.log(user.constructor === Person)  // true 
+
+// -------------------------------------------------
+console.log(Person.constructor === Function);  //true
+console.log(Person.__proto__ === Function.prototype);   // true
+
 ```

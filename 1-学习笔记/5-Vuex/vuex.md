@@ -75,6 +75,8 @@
 4. 将 store 对象挂载到 vue 实例中
    ```js
    //main.js
+   import store from './store'
+
    new Vue({
      el: 'app',
      render: h => h(app),
@@ -97,7 +99,9 @@
 ```js
 //创建store数据源，提供唯一公共数据
 const store = new Vue.Store({
-  state: {count: 0 }
+  state: { 
+    count: 0
+  }
 })
 ```
 
@@ -175,13 +179,13 @@ methods: {
 ##### 3.3.2 触发 mutations 的第二种方式：
 ```js
 //1.从 vuex 中按需导入mapMutations 函数
-import {mapMutations} from 'vuex'
+import { mapMutations } from 'vuex'
 ```
 通过刚才导入的 mapMutations 函数，将需要的 mutations 函数，映射为当前组件的 methods 方法：
 ```js
 //2.将指定的 mutations 函数，映射为当前组件的 methods 函数
 methods: {
-  ...mapMutations: (['add','addN'])
+  ...mapMutations(['add','addN'])
 }
 ```
 > tips: 不要在 **mutations** 函数中执行异步操作
@@ -342,6 +346,12 @@ const store = new Vuex.Store({
         context.commit('add')
       }, 1000)
     },
+    // 可以用解构赋值，等价于
+    //  addAsync({commit}) {
+    //   setTimeout(() => {
+    //     commit('add')
+    //   },1000)
+    // }
     addNAsync(context, step) {
       setTimeout(() => {
         context.commit('addN', step)
@@ -474,7 +484,7 @@ export default {
   },
   methods:{
     // 触发 mutations 的第二种方式
-    ...mapMutations: (['sub','subN']),
+    ...mapMutations(['sub','subN']),
     ...mapActions(['subAsync','subNAsync']),
   }
 }

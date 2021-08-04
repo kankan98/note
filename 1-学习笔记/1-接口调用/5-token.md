@@ -62,7 +62,7 @@ Cookie 的不可跨域名性：
 5. 服务端验证 token ，校验成功则返回请求数据，校验失败则返回错误码。
 
 <p align="center">
-  <img src="../images/token/4-1.png" width = "600" alt="图片名称" align=center />
+  <img src="../0-images/token/4-1.png" width = "600" alt="图片名称" align=center />
 </p>
 
 #### 4.3 Tokens 的优势

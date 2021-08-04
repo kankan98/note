@@ -6,29 +6,119 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 </head>
 
 <body>
-  <div class="div">
-    x<img >
+  <div id="app">
+    <div :class="[a == '1' ? 'red': a == '2' ? 'skyblue':'yellow' ]">
+      {{a}}{{b}}{{c}}
+      <button @click="fun">点击</button>1
+    </div>
+    <button-counter ref="son" >
+      这是测试
+      <!-- <template v-slot:"slot2">
+        父组件插入到slot2的内容
+      </template> -->
+    </button-counter>
+
   </div>
+
 
 </body>
 <style>
-  .div {
-    border: 1px solid red;
-    font-size: 30px;
-    line-height: 30px;
+  * {
+    box-sizing: border-box;
   }
-img{
-  height: 200px;
-  width: 400px;
-  background-color: pink;
-  display: block;
-  /* line-height: 30px; */
-}
+
+  div {
+    height: 200px;
+    width: 200px;
+    margin: 0 auto;
+  }
+
+  .yellow {
+    background-color: yellow;
+  }
+
+  .big {
+    border: 10px solid green;
+  }
+
+  .red {
+    background-color: red;
+  }
+
+  .skyblue {
+    background-color: skyblue;
+  }
 </style>
 <script>
+  Vue.component('button-counter', {
+    data: function () {
+      return {
+        count: 0
+      }
+    },
+    props: {
+
+    },
+    template: '<button v-on:click="count++"><slot></slot>You clicked me {{ count }} times.</button>'
+  })
+  let vm = new Vue({
+    el: '#app',
+    data: {
+      isBig: true,
+      a: 1,
+      b: 1,
+      c: 2,
+      d: 3,
+      e: 4,
+      f: 5,
+    },
+    watch: {
+      a: function (val, oldVal) {
+        console.log('new: %s, old: %s', val, oldVal)
+      },
+      // 方法名
+      b: 'func',
+      // 该回调会在任何被侦听的对象的 property 改变时被调用，不论其被嵌套多深
+      c: {
+        handler: function (val, oldVal) { /* ... */ },
+        deep: true
+      },
+      // 该回调将会在侦听开始之后被立即调用
+      d: {
+        handler: 'func',
+        immediate: true
+      },
+      // 你可以传入回调数组，它们会被逐一调用
+      e: [
+        'handle1',
+        function handle2(val, oldVal) { /* ... */ },
+        {
+          handler: function handle3(val, oldVal) { /* ... */ },
+          /* ... */
+        }
+      ],
+      // watch vm.e.f's value: {g: 5}
+      'e.f': function (val, oldVal) { /* ... */ }
+    },
+    computed: {
+    },
+    methods: {
+    fun() {
+      
+      this.d++;
+      // this.b++;
+    },
+    func() {
+      console.log(this.a++);
+    }
+
+  }
+  });
+
   // let input = document.querySelector('#inp');
   // function debounce(fn) {
   //   let time = null;
@@ -86,7 +176,6 @@ img{
   // }
   // window.addEventListener('scroll', throttle(loading, 1000))
   // window.addEventListener('resize', throttle(loading, 1000))
-
 
 
 </script>
