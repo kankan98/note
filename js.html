@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <form id="formElem">
+    <input type="text" name="name" value="John">
+    <input type="text" name="surname" value="Smith">
+    <input type="submit">
+  </form>
+  
+  <script>
+function postData(url,success,fail) {
+  let xhr = new XMLHttpRequest();
+  xhr.open('post',url);
+  // 如果想要使用post提交数据,必须添加此行
+  xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+  xhr.send('name=kk&age=18');
+  xhr.onreadystatechange = function() {
+    if(xhr.readyState !== 4) return;
+    if(xhr.readyState === 4 && xhr.status === 200) {
+      let obj = xhr.responseText();
+      console.log(obj);
+      success && success(obj);
+    } else {
+      fail && fail(new Error('接口请求失败'));
+    }
+  }
+}
+
+postData('https://api.github.com/users/dengkui123',(res) => {
+  console.log(res)
+},(err)=> {
+  console.log(err);
+});
+
+ 
+  </script>
+</body>
+</html>

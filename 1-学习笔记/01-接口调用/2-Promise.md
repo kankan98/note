@@ -10,8 +10,8 @@
     - [3.1 实例方法](#31-实例方法)
     - [3.2 对象方法](#32-对象方法)
 ### 1. Promise基本用法
-- 实例化Promise对象，<font color="red">构造函数</font>中传递<font color="red">函数</font>，该函数用于处理异步任务
-- <font color="red">resolve</font>和<font color="red">reject</font>两个参数用于处理成功和失败两种情况，并通过对象实例<font color="red">.then</font>获取处理结果
+- 实例化Promise对象，**构造函数**函数，该函数用于处理异步任务
+- `resolve`和`reject`两个参数用于处理成功和失败两种情况，并通过对象实例`.then`获取处理结果
 
 ```js
 var p = new Promise(function(resolve, reject){
@@ -32,31 +32,55 @@ p.then(function(ret){
 
 ### 2. 基于Promise处理Ajax请求
 #### 2.1 处理原生ajax
+1. get请求：
 ```js
-function queryData(url){
+function getData(url){
     return new Promise(function(resolve, reject){
         let xhr = new XMLHttpRequest();
+        xhr.open('get',url);
+        xhr.send();
         xhr.onreadystatechange = function(){
             if(xhr.readyState != 4) return;
-            if(xhr.readyState == 200){
+            if(xhr.status == 200){
                 resolve(xhr.responseText)
             }else{
                 reject('出错了');
             }
         }
-        xhr.open('get',url);
-        xhr.send(null);
+       
     });
 }
 
-queryData('http://localhost:3000/data')
-    .then(function(data){
-        console.log(data);
-    },function(info){
-        console.log(info); 
+getData('http://localhost:3000/data')
+    .then(function(res){
+        console.log(res);
+    },function(err)
+        console.log(err); 
     });
 ```
+2. post请求
+```js
+function postData(url) {
+  return new Promise((resolve, reject) => {
+    let xhr = new XMLHttpRequest();
+    xhr.open('post',url);
+    xhr.send('name=kk&age=23');
+    xhr.onreadystatechange = function() {
+      if(xhr.readyState === 4 && xhr.status === 200) {
+        resolve(xhr.responseText);
+      } else {
+        reject('error')
+      }
+    }
+  })
+}
 
+postData('https://api.github.com/users/dengkui123').then(function(res) {
+  console.log(res);
+},function(err) {
+  console.log(err);
+})
+```
 #### 2.2 发送多次ajax请求
 ```js
 queryData('http://localhost:3000/data')

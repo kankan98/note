@@ -6,6 +6,7 @@
   - [2、css sprite](#2css-sprite)
   - [3、`display: block` 和 `display: inline` 的区别](#3display-block-和-display-inline-的区别)
   - [4、元素水平居中](#4元素水平居中)
+  - [4、元素水平垂直居中](#4元素水平垂直居中)
 ###  1、分析比较 `opacity: 0`、`visibility: hidden`、`display: none` 优劣和适用场景
 **结构：**
 1. `display: none`：会让元素完全从渲染树中消失，渲染的时候不占据任何空间, 不能点击。
@@ -77,8 +78,24 @@
 - 2）设置左右偏移量(`left`和`right`)都为 `0`
 - 3）设置左右外边距 `margin` 都为 `auto`
 
+### 4、元素水平垂直居中
+1. 父元素Flex布局+`justify-content: center` + `item-align: center`;
 
+2. 父元素相对定位，子元素绝对定位
 
+   1. 子元素`left`、`right`、`top`、`bottom`都设为`0`+`margin: auto;`
+   2. 子元素`left:50%; top:50%;` + margin等于子元素宽高的一半乘以`-1`
+   3. 子元素`left:50%; top:50%;`+`transform:translate(-50%,-50%);`
 
+3. 父元素`line-height`设为元素高度 + `font-size:0`(消除空隙)。
+   
+   子元素`display:inline-block` + `vertical-align:middle`+ `font-size: 12px`<br>子元素`line-height`需重新设置
+
+4. 父元素 `font-size:0`
+
+   子元素添加伪类元素`:before`。<br>子元素设置属性`display:inline-block` + `vertical-align:middle`。<br> 伪元素设置属性`vertical-align:middle`+ `height: 100%` + `width: 0`;
+
+5. 父元素设置`display: table-cell` + `vertical-align: middle`<br>
+   - 若子元素是图片有间隙：通过设置`vertical-align:middle`(和文字居中对齐，下端对齐用`bottom`，不设置默认`baseline`对齐方式)或者父元素`font-size: 0;`解决
 > 来源：烟雨平生V<br>
 > 链接：https://blog.csdn.net/sinat_37903468/article/details/100887223
