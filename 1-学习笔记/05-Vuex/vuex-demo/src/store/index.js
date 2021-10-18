@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+
+import Token1 from './module/token1.js'
+import Token2 from './module/token2.js'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -83,5 +86,7 @@ export default new Vuex.Store({
   },
 
   modules: {
+    Token1,
+    Token2
   }
 })

@@ -21,6 +21,7 @@
     - [3.5 Getter](#35-getter)
       - [3.5.1 使用 getters 的第一种方式：](#351-使用-getters-的第一种方式)
       - [3.5.2 使用 getters 的第二种方式：](#352-使用-getters-的第二种方式)
+      - [3.6 Modules](#36-modules)
   - [4. 使用汇总](#4-使用汇总)
     - [4.1 main文件](#41-main文件)
     - [4.2 方式一](#42-方式一)
@@ -202,7 +203,7 @@ const store = new Vuex.Store({
       state.count++
     }
   },
-  action: {
+  actions: {
     addAsync(context) {
       setTimeout(() => {
         //在 actions 中，不能直接修改 state 中的数据
@@ -234,7 +235,7 @@ const store = new Vuex.Store({
       state.count += step;
     }
   },
-  action: {
+  actions: {
     addNAsync(context, step) {
       setTimeout(() => {
         //在 actions 中，不能直接修改 state 中的数据
@@ -297,6 +298,54 @@ computed: {
   ...mapGetters(['showNum'])
 }
 ```
+
+##### 3.6 Modules
+默认情况下，模块内部的action、mutation和getter是注册在**全局命名空间**的。
+```js
+modules:{
+  user: {
+    state:{
+      token: '12345'
+    }
+  },
+  setting:{
+    state:{
+      name:'Vuex实例',
+    }
+  }
+}
+```
+
+常规调用方法：
+```html
+<div>用户token：{{ $store.state.user.token  }}</div>
+<div>用户名称：{{ $store.state.settings.name  }}</div>
+```
+
+结合getters使用：
+```js
+// store.js
+getters: {
+  token: state => state.user.token,
+  name: state => state.settings.name,
+},
+```
+
+```html
+// 调用的组件中
+<div>用户token：{{ token }} </div>
+<div>用户名称：{{ name }} </div>
+```
+```js
+import { mapGetters } from 'vuex'
+export default {
+  computed: {
+    ...mapGetters(['token','name'])
+  }
+}
+
+```
+
 ### 4. 使用汇总
 #### 4.1 main文件
 ```js
@@ -435,7 +484,7 @@ const store = new Vuex.Store({
       state.count -= step;
     },
   },
-  action: {
+  actions: {
     subAsync(context) {
       setTimeout(() => {
         context.commit('sub')

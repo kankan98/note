@@ -7,6 +7,8 @@
   - [3、`display: block` 和 `display: inline` 的区别](#3display-block-和-display-inline-的区别)
   - [4、元素水平居中](#4元素水平居中)
   - [4、元素水平垂直居中](#4元素水平垂直居中)
+  - [5、CSS文字溢出省略](#5css文字溢出省略)
+  - [6、 滚动条样式](#6-滚动条样式)
 ###  1、分析比较 `opacity: 0`、`visibility: hidden`、`display: none` 优劣和适用场景
 **结构：**
 1. `display: none`：会让元素完全从渲染树中消失，渲染的时候不占据任何空间, 不能点击。
@@ -78,6 +80,9 @@
 - 2）设置左右偏移量(`left`和`right`)都为 `0`
 - 3）设置左右外边距 `margin` 都为 `auto`
 
+> 来源：烟雨平生V<br>
+> 链接：https://blog.csdn.net/sinat_37903468/article/details/100887223
+
 ### 4、元素水平垂直居中
 1. 父元素Flex布局+`justify-content: center` + `item-align: center`;
 
@@ -97,5 +102,57 @@
 
 5. 父元素设置`display: table-cell` + `vertical-align: middle`<br>
    - 若子元素是图片有间隙：通过设置`vertical-align:middle`(和文字居中对齐，下端对齐用`bottom`，不设置默认`baseline`对齐方式)或者父元素`font-size: 0;`解决
-> 来源：烟雨平生V<br>
-> 链接：https://blog.csdn.net/sinat_37903468/article/details/100887223
+
+### 5、CSS文字溢出省略
+- 单行：
+```css
+/* 不换行 */
+white-space:nowrap;
+/* 超出隐藏 */
+overflow:hidden;
+/* 省略号代替超出内容 */
+text-overflow: ellipsis;
+```
+- 多行：
+```css
+overflow : hidden;
+text-overflow: ellipsis;
+/* 弹性伸缩盒子模型显示 */
+display: -webkit-box;
+/* 限制在一个块元素的文本行数 */
+-webkit-line-clamp: 2;
+/* 设置或检索伸缩盒对象的子元素的排列方式 */
+-webkit-box-orient: vertical;
+``` 
+
+### 6、 滚动条样式
+```css
+/* 滚动条样式 */
+/* 滚动条 */
+::-webkit-scrollbar-thumb:horizontal { /*水平滚动条的样式*/
+  width: 4px;
+  background-color: #CCCCCC;
+  -webkit-border-radius: 6px;
+}
+::-webkit-scrollbar-track-piece {
+  background-color: #fff; /*滚动条的背景颜色*/
+  -webkit-border-radius: 0; /*滚动条的圆角宽度*/
+}
+::-webkit-scrollbar {
+  width: 12px; /*滚动条的宽度*/
+  height: 8px; /*滚动条的高度*/
+}
+::-webkit-scrollbar-thumb:vertical { /*垂直滚动条的样式*/
+  height: 50px;
+  background-color: #999;
+  -webkit-border-radius: 4px;
+  outline: 2px solid #fff;
+  outline-offset: -2px;
+  border: 2px solid #fff;
+}
+::-webkit-scrollbar-thumb:hover { /*滚动条的hover样式*/
+  height: 50px;
+  background-color: #666;
+  -webkit-border-radius: 4px;
+}
+```
