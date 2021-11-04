@@ -8,6 +8,12 @@
   - [4、生成器（generator）](#4生成器generator)
   - [5、ES5中类的继承](#5es5中类的继承)
   - [6、ES6中类的继承](#6es6中类的继承)
+- [二、尚硅谷ES6笔记](#二尚硅谷es6笔记)
+  - [1、this](#1this)
+  - [2、迭代器](#2迭代器)
+  - [3、生成器](#3生成器)
+  - [4、Promise](#4promise)
+  - [5、async 和 await](#5async-和-await)
 ### 1、	什么是ES？什么是ES6？
 - ECMAScript他也是一门脚本语言，一般缩写为ES，通常会把他看作为JavaScript的标准规范。ES6是新一代JS的语言标准。
 - 但实际上JavaScript是ECMAScript的扩展语言，因为ECMAScript只是提供了最基本的语法，通俗点来说只是约定了代码的如何编写。
@@ -281,3 +287,267 @@ console.log(Child.prototype.__proto__=== Parent.prototype);//true
 ```
 1. 子类的proto属性,表示构造函数的继承，总是指向父类。
 2. 子类的prototype属性的proto属性表示方法的继承，总是指向父类的prototype属性
+
+
+## 二、尚硅谷ES6笔记
+### 1、this
+1. `this` 是静态的, `this` 始终指向函数声明时所在作用域下 `this` 的值( call、apply 无法修改)
+2. 不能作为构造函数实例化对象
+3. 不能使用 `arguments` 变量
+4. 箭头函数简写
+   1) 只有一个参数可省略小括号
+   2) 代码体只有一条语句可省略花括号和 `return` ，语句执行结果就是返回值
+
+### 2、迭代器
+```js
+const test = {
+  length: 4,
+  list: ['one', 'two', 'three', 'four'],
+  [Symbol.iterator]() {
+    let index=0;
+    return {
+      next:() => {
+        if( index < this.length ) {
+          const result={
+            value: this.list[index],
+            done: false
+          }
+          index++;
+          return result;
+        } else {
+          return {
+            value: undefined,
+            done: true
+          }
+        }
+      }
+    }
+  }
+}
+
+for(let i of test) {
+  console.log(i);
+}
+```
+
+### 3、生成器
+1. 定义
+```js
+function * gen(arg) {
+  console.log(arg);
+  let one = yield 111;
+  console.log(one);
+  let two = yield 222;
+  console.log(two);
+  let three = yield 333;
+  console.log(three);
+
+}
+
+let iterator = gen('AAA');
+console.log(iterator.next());
+console.log(iterator.next('BBB'));  // 第2个iterator的参数会作为第一个yield的返回值
+console.log(iterator.next('CCC'));
+console.log(iterator.next('DDD'));
+```
+
+2. 生成器实例
+```js
+function getUsers() {
+  setTimeout(() => {
+    let data1 = "用户数据";
+    iterator.next(data1);
+  },1000)
+}
+
+function getOrders() {
+  setTimeout(() => {
+    let data2 = "订单数据"
+    iterator.next(data2);
+  },1000)
+}
+
+function getGoods() {
+  setTimeout(() => {
+    let data3 = "商品数据";
+    iterator.next(data3);
+  },1000)
+}
+
+function * gen() {
+  let users = yield getUsers();
+  console.log(users);
+  //可以对返回的数据进行操作
+  let orders = yield getOrders();
+  console.log(orders);
+  let goods = yield getGoods();
+  console.log(goods);
+}
+
+let iterator = gen();
+iterator.next();
+```
+
+### 4、Promise
+1. `Promise` 读取文件
+```js
+const fs  = require('fs');
+
+// fs.readFile('./ES6.md', (err,data) => {
+//   if(err) throw err;
+//   console.log(data.toString());
+// })
+
+// 使用 Promise 封装
+const p = new Promise((resolve,reject) => {
+  fs.readFile('./ES6.md', (err,data) => {
+    if(err) {
+      reject(err);
+    } else {
+      resolve(data);
+    }
+  })
+})
+
+p.then(res => {
+  console.log(res.toString());
+},err => {
+  console.log('读取失败');
+})
+```
+
+2. `Promise` 封装 `Ajax`
+```js
+// 接口地址：https://api.apiopen.top/getJoke
+const p = new Promise((resolve,reject) => {
+  // 1.创建对象
+  const xhr = new XMLHttpRequest();
+  // 2.初始化
+  xhr.open('get','https://api.apiopen.top/getJoke');
+  // 3.发送
+  xhr.send();
+  // 4.绑定事件，处理响应结果
+  xhr.onreadystatechange = function() {
+    if(xhr.readyState === 4) {
+      if(xhr.status >= 200 && xhr.status < 300) {
+        resolve(xhr.response);
+      } else {
+        reject(xhr.status);
+      }
+    }
+  }
+})
+
+p.then(res => {
+  console.log(res);
+},err => {
+  console.error(err);
+})
+```
+
+3. `Promise` 读取多个文件
+```js
+const fs = require('fs');
+
+// fs.readFile('./resources/text1.md',(err,data1) => {
+//   fs.readFile('./resources/text2.md',(err,data2) => {
+//     fs.readFile('./resources/text3.md',(err,data3) => {
+//       let res = data1 + '\n' + data2 + '\n' + data3
+//       console.log(res);
+//     })
+//   })
+// })
+
+const p = new Promise((resolve, reject) => {
+  fs.readFile('./resources/text1.md',(err,data) => {
+    resolve(data);
+  })
+})
+
+p.then(res1 => {
+  return new Promise((resolve, reject) => {
+    fs.readFile('./resources/text2.md',(err, res2) => {
+      resolve([res1, res2])
+    })
+  })
+}).then(res2 => {
+  return new Promise((resolve, reject) => {
+    fs.readFile('./resources/text3.md',(err, res3) => {
+      resolve([...res2 , res3]) //  [text1,text2,text3]
+    }) 
+  }) 
+}).then(res => {
+  console.log(res.join('\n'));
+})
+```
+
+### 5、async 和 await
+1. `async` 和 `await` 结合读取文件
+```js
+const fs = require('fs');
+
+function readText1() {
+  return new Promise((resolve,reject) => {
+    fs.readFile('./resources/text1.md', (err,data) => {
+      if(err) reject(err);
+      resolve(data);
+    })
+  })
+}
+function readText2() {
+  return new Promise((resolve,reject) => {
+    fs.readFile('./resources/text2.md', (err,data) => {
+      if(err) reject(err);
+      resolve(data);
+    })
+  })
+}
+function readText3() {
+  return new Promise((resolve,reject) => {
+    fs.readFile('./resources/text3.md', (err,data) => {
+      if(err) reject(err);
+      resolve(data);
+    })
+  })
+}
+
+async function main() {
+  let data1 = await readText1();
+  let data2 = await readText2();
+  let data3 = await readText3();
+  console.log(data1.toString(),data2.toString(),data3.toString());
+}
+
+main();
+```
+
+2. `async` 和 `await` 封装 `Ajax` 请求
+```js
+    // f发送 Ajax 请求, 返回的结果是 Promise 对象  
+    function sendAjax(url) {
+      return new Promise((resolve,reject) => {
+        // 1.创建对象
+        const xhr = new XMLHttpRequest();
+        // 2.初始化
+        xhr.open('get',url);
+        // 3.发送
+        xhr.send();
+        // 4.事件绑定
+        xhr.onreadystatechange = function() {
+          if(xhr.readyState === 4) {
+            if(xhr.status >= 200 && xhr.status < 300) {
+              resolve(xhr.response);
+            } else {
+              reject(xhr.status);
+            }
+          }
+        }
+      })
+    }
+    async function main() {
+      let res = await sendAjax("https://api.apiopen.top/getJoke");
+      console.log(res);
+    }
+    main();
+    
+```
