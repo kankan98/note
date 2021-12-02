@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <div>{{msg.name}}</div>
+    <div>{{msg.age}}</div>
+    <div>{{msg.sex}}</div>
+    <child-com v-bind.sync="msg"></child-com>
+
+  </div>
+  <script>
+    // $attrs: 包含了父作用域中不作为 prop 被识别 (且获取) 的 attribute 绑定。   v-bind="$attrs"
+    // $listeners: 包含了父作用域中的 (不含 .native 修饰器的) v-on 事件监听器。 v-on="$listeners"
+    // .sync 通过 v-bind.sync = "msg"缩写 代替 v-bind:msg="msg" + v-on:update:name="msg.name = $event"、v-on:update:age...
+
+    // $attrs用于对他人组件的封装特别方便，因为该属性可以直接从父组件获取所有的attribute属性传给封装的组件
+   /*  e.g:
+   <template>
+      <div>
+        <el-button v-bind="$attrs">导出</el-button>
+        <div>
+    </template>
+    /* 父组件使用 */
+    <my-button type='primary' size='mini' /> */
+    const vm=new Vue({
+      el: '#app',
+      data: {
+        msg: {
+          name: 'kk',
+          age: '18',
+          sex: 'man',
+        }
+      },
+      components: {
+        'child-com': {
+          props: ['name'],
+          template: `<div><button @click="change">更新按钮</button></div>`,
+          methods: {
+            change() {
+              this.$emit('update:name','deng kui');
+              this.$emit('update:age',23);
+              console.log(this.$attrs);   // 打印出不在porps中的attribute
+              console.log(this.$listeners); // 打印所有的监听器
+            }
+          }
+        }
+      },
+    })
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>自定义组件的v-model双向绑定</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <div>
+      <!--  text和textarea -->
+      <base-input :value="message" @input="message = $event"></base-input>
+      {{message}}
+    </div>
+    <div>
+      <!-- checkbox和radio -->
+      <base-checkbox :value="checkValue" @change="checkValue=$event"></base-checkbox>
+      {{checkValue}}
+    </div>
+    <div>
+      <!-- select -->
+      <base-select :value="selectValue" @change="selectValue=$event"></base-select>
+      {{selectValue}}
+    </div>
+
+  </div>
+
+  <script>
+    const vm=new Vue({
+      el: '#app',
+      components: {
+        'base-input': {
+          props: ['value'],
+          template: `<input :value="value" @input="onMessage"></input>`,
+          methods: {
+            onMessage(e) {
+              this.$emit('input',e.target.value)
+            }
+          }
+        },
+        'base-checkbox': {
+          model: {
+            prop: 'checked',
+            event: 'change',
+          },
+          props: {
+            checked: Boolean,
+          },
+          template: `<input type="checkbox" :checked="checked" @change="$emit('change',$event.target.checked)">`
+        },
+        'base-select': {
+          props: ['value'],
+          template: `<select :value="value" @change="$emit('change',$event.target.value)">
+                      <option value="" disabled>请选择</option>
+                      <option>AAA</option>
+                      <option>BBB</option>
+                      <option>CCC</option>
+                    </select>`
+
+        }
+      },
+      data() {
+        return {
+          message: '',
+          checkValue: false,
+          selectValue:'',
+        }
+      },
+    })
+  </script>
+
+  <style>
+</body>
+
+</html>

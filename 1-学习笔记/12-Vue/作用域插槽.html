@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <current-user>
+      <template v-slot:user="{user}">
+        <p>{{user.name}}</p>
+      </template>
+      <template #age>
+        <p>111</p>
+      </template>
+    </current-user>
+  </div>
+  <script>
+    const vm = new Vue({
+      el:'#app',
+      data:{
+
+      },
+      components: {
+        'current-user': {
+          template: `<div>
+                      <slot name="user":user="user"></slot>
+                      <slot name="age"></slot>
+                    </div>`,
+          data() {
+            return {
+              user: {
+                name: 'kk',
+                age: '23',
+                sex: '男',
+              }
+            }
+
+          }
+        }
+      }
+    })
+  </script>
+</body>
+</html>

@@ -14,6 +14,8 @@
   - [3、生成器](#3生成器)
   - [4、Promise](#4promise)
   - [5、async 和 await](#5async-和-await)
+  - [六、es5原型继承](#六es5原型继承)
+    - [寄生组合式继承](#寄生组合式继承)
 ### 1、	什么是ES？什么是ES6？
 - ECMAScript他也是一门脚本语言，一般缩写为ES，通常会把他看作为JavaScript的标准规范。ES6是新一代JS的语言标准。
 - 但实际上JavaScript是ECMAScript的扩展语言，因为ECMAScript只是提供了最基本的语法，通俗点来说只是约定了代码的如何编写。
@@ -550,4 +552,108 @@ main();
     }
     main();
     
+```
+
+### 六、es5原型继承
+<div align="center">
+  <img src="https://s3.bmp.ovh/imgs/2021/12/3bae2e83da508592.png" width="80%" height="auto" />
+</div>
+
+#### 寄生组合式继承
+```js
+// o()对传入其中的对象执行了一次浅复制（传入值为返回值的隐式原型（__proto__））
+function o(superType) {
+  var F = function(){};
+  F.prototype = superType;
+  return new F();
+}
+
+// 二选一即可
+// function inheritPrototype(subType, superType) {
+//   var tempType = o(superType.prototype);  // 创建对象
+//   tempType.constructor = subType;         // 增强对象  
+//   subType.prototype = tempType;           // 指定对象
+// }
+
+// 将子类的原型对象指向父类的原型对象（即子类原型对象继承自父类原型对象）
+function inheritPrototype(subType, superType) {
+  subType.prototype = o(superType.prototype);
+  // 根据原型链的规则,绑定constructor
+  Object.defineProperty(subType.prototype, 'constructor', {
+    configurable:true,
+    enumerable: false,
+    writable: true,
+    value: subType,
+  })
+  //或 
+  // subType.prototype.constructor = subType;
+}
+function Parent(name,age) {
+  this.name = name;
+  this.age = age;
+
+  this.sing = function() {
+    console.log(this.name + ' likes singing!');
+  }
+}
+
+Parent.prototype.dance = function() {
+  console.log(this.name + ' likes dancing!');
+}
+
+function Child(name, age, sex, home) {
+  this.sex = sex;
+  this.home = home;
+  Parent.call(this, name, age);
+
+  this.sleep = function() {
+    console.log(this.name + ' likes sleeping!');
+  }
+}
+
+inheritPrototype(Child, Parent);
+
+
+
+Child.prototype.walk = function() {
+  console.log(this.name + ' likes walking!');
+}
+
+Child.prototype.getInfo = function() {
+  console.log("My name is "+ this.name + " and I'm " + this.age + ', I come from '+ this.home + '.');
+}
+
+let person = new Child('dk', 23, 'man', 'shaoyang');
+let person2 = new Child('kk',18,'man','shenzhen');
+
+console.log(person);
+// Child {
+//   sex: 'man',
+//   home: 'shaoyang',
+//   name: 'dk',
+//   age: 23,
+//   sing: [Function (anonymous)],
+//   sleep: [Function (anonymous)]
+// }
+console.log(person.__proto__ === Child.prototype);  // true
+console.log(person.__proto__);  // 非正式用法(获取原型对象用Object.getPrototypeOf())
+// Parent {
+//   walk: [Function (anonymous)],
+//   getInfo: [Function (anonymous)]
+// }
+console.log(person.__proto__.__proto__ === Parent.prototype); // true
+console.log(person.__proto__.__proto__);
+// { dance: [Function (anonymous)] }
+
+person.sleep();    //  dk likes sleeping!
+person.walk();     //  dk likes walking!
+person.sing();     //  dk likes singing!
+person.dance();    //  dk likes dancing!
+person.getInfo();  //  My name is dk and I'm 23, I come from shaoyang.
+
+person2.sleep();    //  kk likes sleeping!
+person2.walk();     //  kk likes walking!
+person2.sing();     //  kk likes singing!
+person2.dance();    //  kk likes dancing!
+person2.getInfo();  //  My name is kk and I'm 18, I come from shenzhen.
 ```
