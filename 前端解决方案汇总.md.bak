@@ -838,7 +838,7 @@ body {
 ```js
 
 import * as xlsx from 'xlsx'
-import { read, utils, writeFileXLSX } from 'xlsx';
+import { utils, writeFileXLSX } from 'xlsx';
 
 /**
  * @description: 表格导出为excel
